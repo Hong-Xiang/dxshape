@@ -34,11 +34,28 @@ class TestAxisToZ(unittest.TestCase):
             np.testing.assert_array_almost_equal(rot@v.data(),
                                                  AXIS3_Z.direction_vector().data())
 
+    def test_random_vectors(self):
+        for i in range(RANDOM_VECTORS.shape[0]):
+            v = Vector3(RANDOM_VECTORS[i, :])
+            ax = Axis3(v)
+            rot = axis_to_z(ax)
+            np.testing.assert_array_almost_equal(rot@v.data(),
+                                                 AXIS3_Z.direction_vector().data())
+
 
 class TestZToAxis(unittest.TestCase):
     def test_axis_vectors(self):
         for i in range(AXIS_VECTORS.shape[0]):
             v = Vector3(AXIS_VECTORS[i, :])
+            ax = Axis3(v)
+            rot = z_to_axis(ax)
+            np.testing.assert_array_almost_equal(rot@(AXIS3_Z.direction_vector()
+                                                      .data()),
+                                                 v.data())
+
+    def test_random_vectors(self):
+        for i in range(RANDOM_VECTORS.shape[0]):
+            v = Vector3(RANDOM_VECTORS[i, :])
             ax = Axis3(v)
             rot = z_to_axis(ax)
             np.testing.assert_array_almost_equal(rot@(AXIS3_Z.direction_vector()
