@@ -1,5 +1,6 @@
 import numpy as np
 from ..utils.axes import Axes3, Axis3, AXIS3_X, AXIS3_Y, AXIS3_Z
+from ..utils.vector import Vector3
 from ..projection import projection_2to3, projection_3to2
 import math
 
@@ -31,26 +32,34 @@ def axis_to_z(axis: Axis3) -> np.ndarray:
     """
     Rotation matrix rotate given axis to normal z axis
     """
-    rad_y = math.asin(axis.direction_vector().z() - 1.)
-    rad_z = math.atan2(axis.direction_vector().y(),
+    axis_z = axis.direction_vector().z()
+    if axis_z >= 0:
+        rot_y = math.asin(1. - axis_z)
+    else:
+        rot_y = math.asin(- axis_z - 1.) + np.pi
+    rot_z = math.atan2(axis.direction_vector().y(),
                        axis.direction_vector().x())
-    return rotate3(rad_z, AXIS3_Z)@rotate3(-rad_y, AXIS3_Y)
+    return rotate3(rot_y, AXIS3_Y)@rotate3(-rot_z, AXIS3_Z)
 
 
 def z_to_axis(axis: Axes3):
     """
     rotation matrix which rotate normal z axis to z axis of given axes
     """
-    rad_y = math.asin(axis.direction_vector().z() - 1.)
-    rad_z = math.atan2(axis.direction_vector().y(),
+    axis_z = axis.direction_vector().z()
+    if axis_z >= 0:
+        rot_y = math.asin(1. - axis_z)
+    else:
+        rot_y = math.asin(- axis_z - 1.) - np.pi
+    rot_z = math.atan2(axis.direction_vector().y(),
                        axis.direction_vector().x())
-    return rotate3(rad_y, AXIS3_Y)@rotate3(-rad_z, AXIS3_Z)
+    return rotate3(rot_z, AXIS3_Z)@rotate3(-rot_y, AXIS3_Y)
 
 
-def axes_to_axes(source, target):
+def axis_to_axis(source, target):
     """
     Rotation matrix which rotate z axis of source axes to z axis of target axes.
     Implemented by firstly roteta source axes to `AXES3_STD.z`, and then rotate
     `AXES3_STD.z` to target axis.
     """
-    return axes_to_z(source) @ z_to_axes(target)
+    return axis_to_z(source) @ z_to_axis(target)
