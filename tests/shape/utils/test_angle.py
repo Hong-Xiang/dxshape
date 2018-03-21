@@ -11,7 +11,7 @@ AXIS3_VECTORS = np.array([[0., 0., 1.],
                           [0., 0., -1.]])
 
 THETA3 = [0., np.pi / 2., np.pi / 2., np.pi / 2., np.pi / 2., np.pi]
-PHI3 = [0., 0., np.pi / 2., np.pi, np.pi * 2. / 3., 0.]
+PHI3 = [0., 0., np.pi / 2., np.pi, -np.pi / 2., 0.]
 
 
 class TestSolidAngle(unittest.TestCase):
@@ -21,3 +21,9 @@ class TestSolidAngle(unittest.TestCase):
             v = AXIS3_VECTORS[i, :]
             sa = SolidAngle.from_direction_vector(Vector3(v))
             self.assertAlmostEqual(sa.theta(), THETA3[i])
+
+    def test_phi(self):
+        for i in range(AXIS3_VECTORS.shape[0]):
+            v = AXIS3_VECTORS[i, :]
+            sa = SolidAngle.from_direction_vector(Vector3(v))
+            self.assertAlmostEqual(sa.phi(), PHI3[i])
