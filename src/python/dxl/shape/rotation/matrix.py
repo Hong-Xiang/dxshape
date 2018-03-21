@@ -34,13 +34,17 @@ def axis_to_z(axis: Axis3) -> np.ndarray:
     rad_y = math.asin(axis.direction_vector().z() - 1.)
     rad_z = math.atan2(axis.direction_vector().y(),
                        axis.direction_vector().x())
-    return rotate3(rad_z, AXIS3_Z)@rotate3(rad_y, AXIS3_Y)
+    return rotate3(rad_z, AXIS3_Z)@rotate3(-rad_y, AXIS3_Y)
 
 
-def z_to_axis(axes: Axes3):
+def z_to_axis(axis: Axes3):
     """
     rotation matrix which rotate normal z axis to z axis of given axes
     """
+    rad_y = math.asin(axis.direction_vector().z() - 1.)
+    rad_z = math.atan2(axis.direction_vector().y(),
+                       axis.direction_vector().x())
+    return rotate3(rad_y, AXIS3_Y)@rotate3(-rad_z, AXIS3_Z)
 
 
 def axes_to_axes(source, target):
