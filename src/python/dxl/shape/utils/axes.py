@@ -1,8 +1,11 @@
 from .vector import Vector3
+import numpy as np
 
 
 class Axis3:
     def __init__(self, direction_vector: Vector3):
+        if isinstance(direction_vector, np.ndarray):
+            direction_vector = Vector3(direction_vector)
         self._v = direction_vector
 
     def direction_vector(self):
@@ -19,6 +22,15 @@ class Axes3:
         self._x = x_axis
         self._y = y_axis
         self._z = z_axis
+
+    def x(self) -> Axis3:
+        return self._x
+
+    def y(self) -> Axis3:
+        return self._y
+
+    def z(self) -> Axis3:
+        return self._z
 
 
 AXES3_STD = Axes3(AXIS3_X, AXIS3_Y, AXIS3_Z)

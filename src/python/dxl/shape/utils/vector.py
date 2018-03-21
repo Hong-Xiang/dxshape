@@ -43,27 +43,27 @@ class Vector1(VectorLowDim):
     _dim = 1
 
     def x(self):
-        return self.d[0]
+        return self.data()[0]
 
 
 class Vector2(VectorLowDim):
     _dim = 2
 
     def x(self):
-        return self.d[0]
+        return self.data()[0]
 
     def y(self):
-        return self.d[1]
+        return self.data()[1]
 
 
 class Vector3(VectorLowDim):
     _dim = 3
 
     def x(self):
-        return self.d[0]
+        return self.data()[0]
 
     def y(self):
-        return self.d[1]
+        return self.data()[1]
 
     def z(self):
-        return self.d[2]
+        return self.data()[2]
