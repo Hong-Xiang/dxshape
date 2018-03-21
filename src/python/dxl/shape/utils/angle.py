@@ -11,11 +11,11 @@ class AngleBase(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def unit_vector(self) -> VectorLowDim:
+    def direction_vector(self) -> VectorLowDim:
         pass
 
     @abstractmethod
-    def from_unit_vector(cls, unit_vector) -> 'AngleBase':
+    def from_unit_vector(cls, direction_vector) -> 'AngleBase':
         pass
 
 
@@ -47,7 +47,7 @@ class AngleRangeBase(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def from_unit_vector(cls, unit_vector, end_vector=None) -> 'AngleRangeBase':
+    def from_unit_vector(cls, direction_vector, end_vector=None) -> 'AngleRangeBase':
         pass
 
 
@@ -72,7 +72,7 @@ class Angle(AngleBase):
     def theta(self):
         return self._theta
 
-    def unit_vector(self) -> Vector2:
+    def direction_vector(self) -> Vector2:
         return theta2vector2(self.theta())
 
     @classmethod
@@ -132,7 +132,7 @@ class SolidAngle(AngleBase):
     def phi(self):
         return self._phi
 
-    def unit_vector(self):
+    def direction_vector(self):
         return theta_phi2vector3(self.theta(), self.phi())
 
 
@@ -154,10 +154,10 @@ class SolidAngleRange(AngleRangeBase):
         return self.end().phi()
 
     def start_unit_vector(self) -> Vector3:
-        return self.start().unit_vector()
+        return self.start().direction_vector()
 
     def end_unit_vector(self) -> Vector3:
-        return self.end().unit_vector()
+        return self.end().direction_vector()
 
     @classmethod
     def from_unit_vector(cls, start, end=None) -> SolidAngle:
