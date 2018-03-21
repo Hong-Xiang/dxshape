@@ -65,8 +65,9 @@ class TestZToAxis(unittest.TestCase):
 
 class TestAxisToAxis(unittest.TestCase):
     def test_random_axis(self):
-        axis = [Axis3(Vector3(RANDOM_VECTORS[i, :]))
-                for i in range(RANDOM_VECTORS.shape[0])]
+        data = np.concatenate([RANDOM_VECTORS, AXIS_VECTORS])
+        axis = [Axis3(Vector3(data[i, :]))
+                for i in range(data.shape[0])]
         for src in axis:
             for tar in axis:
                 v_tar = tar.direction_vector().data()
