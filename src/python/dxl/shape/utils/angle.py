@@ -1,22 +1,83 @@
 from .vector import Vector2, Vector3, VectorLowDim
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractclassmethod
 import math
 from typing import Tuple
 
+__all__ = ['Angle', 'SolidAngle']
+
+
+def theta2vector2(theta: float) -> Vector2:
+    if theta is None:
+        return None
+    return Vector2([math.sin(theta), math.cos(theta)])
+
+
+def vector22theta(v: Vector2) -> float:
+    if v is None:
+        return None
+    return math.atan2(v.y(), v.x())
+
+
+def theta_phi2vector3(theta: float, phi: float) -> Vector3:
+    return Vector3([math.sin(theta) * math.sin(phi),
+                    math.sin(theta) * math.cos(phi),
+                    math.cos(theta)])
+
+
+def vector32theta_phi(v: Vector3)-> Tuple[float, float]:
+    if v is None:
+        return None, None
+    return math.acos(v.z()), math.atan2(v.y(), v.x())
+
 
 class AngleBase(metaclass=ABCMeta):
-    @abstractmethod
-    @classmethod
-    def _process_angle_base(cls, angle):
-        pass
-
     @abstractmethod
     def direction_vector(self) -> VectorLowDim:
         pass
 
     @abstractmethod
-    def from_unit_vector(cls, direction_vector) -> 'AngleBase':
+    def from_direction_vector(cls, direction_vector) -> 'AngleBase':
         pass
+
+
+class Angle(AngleBase):
+    def __init__(self, theta=None):
+        if theta is None:
+            theta = 0.0
+        self._theta = theta
+
+    def theta(self):
+        return self._theta
+
+    def direction_vector(self) -> Vector2:
+        return theta2vector2(self.theta())
+
+    @classmethod
+    def from_direction_vector(cls, v: Vector2) -> 'Angle':
+        return cls(vector22theta(v))
+
+
+class SolidAngle(AngleBase):
+    def __init__(self, theta=None, phi=None):
+        if theta is None:
+            theta = 0.0
+        if phi is None:
+            phi = 0.0
+        self._theta = theta
+        self._phi = phi
+
+    def theta(self):
+        return self._theta
+
+    def phi(self):
+        return self._phi
+
+    def direction_vector(self) -> Vector3:
+        return theta_phi2vector3(self.theta(), self.phi())
+
+    @classmethod
+    def from_direction_vector(self, v: Vector3):
+        return SolidAngle(*vector32theta_phi(v))
 
 
 class AngleRangeBase(metaclass=ABCMeta):
@@ -47,37 +108,8 @@ class AngleRangeBase(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def from_unit_vector(cls, direction_vector, end_vector=None) -> 'AngleRangeBase':
+    def from_direction_vectors(cls, direction_vector, end_vector=None) -> 'AngleRangeBase':
         pass
-
-
-def theta2vector2(theta: float) -> Vector2:
-    if theta is None:
-        return None
-    return Vector2([math.sin(theta), math.cos(theta)])
-
-
-def vector22theta(v: Vector2) -> float:
-    if v is None:
-        return None
-    return math.atan2(v.y(), v.x())
-
-
-class Angle(AngleBase):
-    def __init__(self, theta=None):
-        if theta is None:
-            theta = 0.0
-        self._theta = theta
-
-    def theta(self):
-        return self._theta
-
-    def direction_vector(self) -> Vector2:
-        return theta2vector2(self.theta())
-
-    @classmethod
-    def from_unit_vector(cls, v: Vector2) -> 'Angle':
-        return cls(vector22theta(v))
 
 
 class AngleRange(AngleRangeBase):
@@ -94,46 +126,15 @@ class AngleRange(AngleRangeBase):
         return self.end().theta()
 
     @classmethod
-    def from_unit_vector(cls, start, end=None) -> SolidAngle:
-        return cls(Angle.from_unit_vector(start),
-                   Angle.from_unit_vector(end))
+    def from_direction_vectors(cls, start, end=None) -> SolidAngle:
+        return cls(Angle.from_direction_vector(start),
+                   Angle.from_direction_vector(end))
 
     def start_unit_vector(self) -> Vector2:
         return self.start().to_unit_vector()
 
     def end_unit_vector(self) -> Vector2:
         return self.end().to_unit_vector()
-
-
-def theta_phi2vector3(theta: float, phi: float) -> Vector3:
-    return Vector3([math.cos(theta) * math.sin(phi),
-                    math.cos(theta) * math.cos(phi),
-                    math.sin(theta)])
-
-
-def vector32theta_phi(v: Vector3)-> Tuple[float, float]:
-    if v is None:
-        return None, None
-    return math.asin(v.z()), math.atan2(v.y(), v.x())
-
-
-class SolidAngle(AngleBase):
-    def __init__(self, theta=None, phi=None):
-        if theta is None:
-            theta = 0.0
-        if phi is None:
-            phi = 0.0
-        self._theta = theta
-        self._phi = phi
-
-    def theta(self):
-        return self._theta
-
-    def phi(self):
-        return self._phi
-
-    def direction_vector(self):
-        return theta_phi2vector3(self.theta(), self.phi())
 
 
 class SolidAngleRange(AngleRangeBase):
@@ -160,5 +161,5 @@ class SolidAngleRange(AngleRangeBase):
         return self.end().direction_vector()
 
     @classmethod
-    def from_unit_vector(cls, start, end=None) -> SolidAngle:
+    def from_direction_vector(cls, start, end=None) -> SolidAngle:
         return cls(SolidAngle(start), SolidAngle(end))
