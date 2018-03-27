@@ -1,14 +1,21 @@
-from .vector import Vector3
+from .vector import Vector3, VectorLowDim
+from abc import ABCMeta, abstractmethod
 import numpy as np
 
 
-class Axis3:
+class AxisBase(metaclass=ABCMeta):
+    @abstractmethod
+    def direction_vector(self) -> VectorLowDim:
+        pass
+
+
+class Axis3(AxisBase):
     def __init__(self, direction_vector: Vector3):
         if isinstance(direction_vector, np.ndarray):
             direction_vector = Vector3(direction_vector)
         self._v = direction_vector
 
-    def direction_vector(self):
+    def direction_vector(self) -> Vector3:
         return self._v
 
 

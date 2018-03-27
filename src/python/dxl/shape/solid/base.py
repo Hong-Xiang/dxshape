@@ -1,5 +1,5 @@
-from ..vector import VectorLowDim
-from ..angle import AngleBase
+from ..utils import VectorLowDim, AngleBase, AxisBase
+
 from abc import ABCMeta, abstractmethod
 
 
@@ -20,14 +20,14 @@ class Shape(metaclass=ABCMeta):
     def tanslate(self, v: VectorLowDim) -> 'Shape':
         pass
 
+    @abstractmethod
+    def rotate_origin(self, axis: AxisBase, angle: float) -> 'Solid':
+        pass
+
 
 class Solid(Shape):
     @abstractmethod
     def normal(self) -> VectorLowDim:
-        pass
-
-    @abstractmethod
-    def rotate(self, axis: VectorLowDim, radian: float) -> 'Solid':
         pass
 
     def is_collision(self, s: 'Shape') -> bool:

@@ -17,10 +17,15 @@ class Box(Solid):
         return self._shape
 
     def normal(self):
-        return self._normal.unit_vector()
+        return self._normal.direction_vector()
 
     def origin(self):
         return self._origin
 
-    def rotate(self, angle: SolidAngle):
-        
+    def rotate_origin(self, angle: SolidAngle) -> 'Box':
+        pass
+
+    def translate(self, v: VectorLowDim) -> 'Box':
+        return Box(shape=self.shape(),
+                   origin=self.translate_origin(v),
+                   normal=self.normal())

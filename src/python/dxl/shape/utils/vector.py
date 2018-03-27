@@ -8,6 +8,15 @@ class VectorLowDim:
         return self._data
 
     @classmethod
+    def from_list(cls, v):
+        if np.array(v).size == 1:
+            return Vector1(v)
+        if np.array(v).size == 2:
+            return Vector2(v)
+        if np.array(v) == 3:
+            return Vector3(v)
+
+    @classmethod
     def dim(cls):
         return cls._dim
 

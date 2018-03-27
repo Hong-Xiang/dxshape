@@ -41,7 +41,7 @@ def axis_to_z(axis: Axis3) -> np.ndarray:
 
 def z_to_axis(axis: Axes3):
     """
-    rotation matrix which rotate normal z axis to z axis of given axes
+    rotation matrix which rotate normal z axis to given axis
     """
     axis_z = axis.direction_vector().z()
     rot_y = math.acos(axis_z)
@@ -52,8 +52,8 @@ def z_to_axis(axis: Axes3):
 
 def axis_to_axis(source, target):
     """
-    Rotation matrix which rotate z axis of source axes to z axis of target axes.
-    Implemented by firstly roteta source axes to `AXES3_STD.z`, and then rotate
+    Rotation matrix which rotate source axis to target axis.
+    Implemented by firstly roteta source axis to `AXES3_STD.z`, and then rotate
     `AXES3_STD.z` to target axis.
     """
     return z_to_axis(target)@axis_to_z(source)
