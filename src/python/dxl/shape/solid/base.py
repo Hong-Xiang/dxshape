@@ -4,7 +4,6 @@ from abc import ABCMeta, abstractmethod
 
 
 class Shape(metaclass=ABCMeta):
-
     @abstractmethod
     def dim(self):
         pass
@@ -23,6 +22,19 @@ class Shape(metaclass=ABCMeta):
     @abstractmethod
     def rotate_origin(self, axis: AxisBase, angle: float) -> 'Solid':
         pass
+
+
+class LinearSpace(Shape):
+    @property
+    def ndim(self):
+        pass
+
+    @property
+    def true_dim(self):
+        pass
+
+class R3(LinearSpace):
+    pass
 
 
 class Solid(Shape):
