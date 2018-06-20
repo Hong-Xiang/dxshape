@@ -1,6 +1,16 @@
 from ..utils import VectorLowDim, AngleBase, AxisBase
 
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod, abstractproperty
+
+
+class Entity:
+    @abstractproperty
+    def ndim(self):
+        pass
+
+    @abstractproperty
+    def origin(self):
+        pass
 
 
 class Shape(metaclass=ABCMeta):
@@ -16,7 +26,7 @@ class Shape(metaclass=ABCMeta):
         return self.origin + v
 
     @abstractmethod
-    def tanslate(self, v: VectorLowDim) -> 'Shape':
+    def translate(self, v: VectorLowDim) -> 'Shape':
         pass
 
     @abstractmethod
@@ -33,8 +43,11 @@ class LinearSpace(Shape):
     def true_dim(self):
         pass
 
+
 class R3(LinearSpace):
-    pass
+    @property
+    def ndim(self):
+        return 3
 
 
 class Solid(Shape):

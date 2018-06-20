@@ -25,6 +25,10 @@ AXIS3_Z = Axis3(Vector3([0.0, 0.0, 1.0]))
 
 
 class Axes3:
+    """
+    A coordinate framework with three axis
+    """
+
     def __init__(self, x_axis, y_axis, z_axis):
         self._x = x_axis
         self._y = y_axis
