@@ -41,9 +41,6 @@ class VectorLowDim:
     def zeros(cls):
         return cls(np.zeros([cls.dim()]))
 
-    def __getattr__(self, key):
-        return getattr(self._data, key)
-
     def __add__(self, v: 'VectorLowDim'):
         if isinstance(v, VectorLowDim):
             data = v.data()
@@ -96,13 +93,13 @@ class Vector3(VectorLowDim):
         return 3
 
     def x(self):
-        return self.data()[0]
+        return self.data()[0][0]
 
     def y(self):
-        return self.data()[1]
+        return self.data()[1][0]
 
     def z(self):
-        return self.data()[2]
+        return self.data()[2][0]
 
     def __sub__(self, v):
         return Vector3(self.data() - v.data())

@@ -15,7 +15,7 @@ class Box(Solid):
         self._origin = Vector3(origin)
         if normal is None:
             normal = SolidAngle(0.0, 0.0)
-        self._normal = Vector3(normal)
+        self._normal = Vector3(normal).to_direction_vector()
 
     @property
     def dim(self):
@@ -25,7 +25,7 @@ class Box(Solid):
         return self._shape
 
     def normal(self):
-        return self._normal.to_direction_vector()
+        return self._normal
 
     def origin(self):
         return self._origin
@@ -44,3 +44,7 @@ class Box(Solid):
 
     def edges(self) -> 'List[Line]':
         pass
+
+    def __repr__(self):
+        return "<Box(shape={}, origin={}, normal={})>".format(
+            self._shape, self._origin, self._normal)

@@ -31,7 +31,7 @@ def is_collision(s0, s1):
 def point_box_checker(p, b):
     from ..rotation.matrix import axis_to_z
     from ..utils.axes import Axis3
-    diff = (p - b.origin()).data()
+    diff = (p - b.origin()).data().data()
     rot = axis_to_z(Axis3(b.normal().data()))
     diff = rot @ diff
     for i in range(3):

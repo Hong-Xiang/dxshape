@@ -44,6 +44,9 @@ class Point(Shape):
     def __getitem__(self, i):
         return self._data[i]
 
+    def __repr__(self):
+        return "<Point({})>".format(self.data())
+
 
 class Origin(Point):
     def __init__(self, ndim=None):
