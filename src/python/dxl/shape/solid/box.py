@@ -11,7 +11,7 @@ class Box(Solid):
         self._origin = Vector3(origin)
         if normal is None:
             normal = SolidAngle(0.0, 0.0)
-        self._normal = Vector3(normal.direction_vector)
+        self._normal = normal.direction_vector
 
     def dim(self):
         pass
