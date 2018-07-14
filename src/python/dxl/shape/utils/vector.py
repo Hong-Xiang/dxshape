@@ -13,7 +13,7 @@ class VectorLowDim:
             return Vector1(v)
         if np.array(v).size == 2:
             return Vector2(v)
-        if np.array(v) == 3:
+        if np.array(v).size == 3:
             return Vector3(v)
 
     @classmethod
