@@ -19,5 +19,10 @@ class Point(Shape):
     def tanslate(self, v: VectorLowDim) -> 'Point':
         return Point(self.origin() + v)
 
+    def rotate_origin(self, axis: AxisBase, angle: float) -> 'Solid' :
+        RotateMatrix=rotate3(theta=angle, axis=axis):
+        pRot=np.dot(RotateMatrix, self)
+        return pRot
+
     def is_in(self, s: Solid) -> bool:
         return s.is_collision(self)

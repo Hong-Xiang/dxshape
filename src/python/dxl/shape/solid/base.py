@@ -42,5 +42,5 @@ class Solid(Shape):
     def normal(self) -> VectorLowDim:
         pass
 
-    def is_collision(self, s: 'Shape') -> bool:
+    def is_collision(self, s: Shape) -> bool:
         pass
