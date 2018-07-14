@@ -1,6 +1,6 @@
 from .base import Solid
-from ..vector import VectorLowDim, Vector3
-from ..angle import AngleBase, SolidAngle
+from ..utils.vector import VectorLowDim, Vector3
+from ..utils.angle import AngleBase, SolidAngle
 
 
 class Box(Solid):
@@ -17,7 +17,7 @@ class Box(Solid):
         return self._shape
 
     def normal(self):
-        return self._normal.direction_vector()
+        return self._normal
 
     def origin(self):
         return self._origin
