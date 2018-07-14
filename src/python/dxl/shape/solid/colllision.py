@@ -28,8 +28,8 @@ def is_collision(p: Point, b: Box) -> bool:
     if isinstance(p, Box):
         p, b = b, p
     boolValue=False
-    bTrans=b.translate( b.origin*[-1])
-    pTtans=p.translate( b.origin*[-1])
+    bTrans=b.translate( b.origin)
+    pTtans=p.translate( b.origin)
     RotateMatrix=axis_to_axis(b.normal,[0.0, 0.0, 1.0])
     pRot=np.dot(RotateMatrix, pTtans)
     if ((pRot[1]<=0.5*bTrans. shape[1] or pRot[1]>=-0.5*bTrans. shape[1]) and 

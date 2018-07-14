@@ -13,7 +13,7 @@ class Shape(metaclass=ABCMeta):
         pass
 
     def translate_origin(self, v: VectorLowDim):
-        return self.origin + v
+        return self.origin - v
 
     @abstractmethod
     def translate(self, v: VectorLowDim) -> 'Shape':
