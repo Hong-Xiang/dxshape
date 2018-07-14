@@ -12,9 +12,9 @@ class CollisionTesterManager:
         pass
 
 
-class CollisionTester:
-    def is_collision( s0: Shape, s1: Shape) -> bool:
-        pass
+#class CollisionTester:
+#    def is_collision( s0: Shape, s1: Shape) -> bool:
+#       pass
 
 
 #class BoxPointTester:
@@ -28,7 +28,7 @@ def is_collision(p: Point, b: Box) -> bool:
     if isinstance(p, Box):
         p, b = b, p
     boolValue=False
-    bTrans=.translate(-b.origin)
+    bTrans=b.translate(-b.origin)
     pTtans=p.translate(-b.origin)
     RotateMatrix=axis_to_axis(b.normal,Vector3([0.0, 0.0, 1.0]))
     pRot=np.dot(RotateMatrix, pTtans)
