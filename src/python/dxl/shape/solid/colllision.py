@@ -1,6 +1,8 @@
 from .base import Shape
 from .point import Point
 from .box import Box
+from ..rotation.matrix import axis_to_axis
+from ..utils.vector import Vector3
 import numpy as np
 
 
@@ -11,12 +13,12 @@ class CollisionTesterManager:
 
 
 class CollisionTester:
-    def is_collision(s0: Shape, s1: Shape) -> bool:
+    def is_collision(self, s0: Shape, s1: Shape) -> bool:
         pass
 
 
 class BoxPointTester:
-    def is_collision(p: Point, b: Box) -> bool:
+    def is_collision(self, p: Point, b: Box) -> bool:
         if isinstance(p, Box):
             p, b = b, p
         boolValue=False
