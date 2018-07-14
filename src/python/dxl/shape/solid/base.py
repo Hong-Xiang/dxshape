@@ -16,7 +16,7 @@ class Shape(metaclass=ABCMeta):
         return self.origin + v
 
     @abstractmethod
-    def tanslate(self, v: VectorLowDim) -> 'Shape':
+    def translate(self, v: VectorLowDim) -> 'Shape':
         pass
 
     @abstractmethod

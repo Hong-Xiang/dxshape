@@ -19,7 +19,7 @@ class Point(Shape):
     def origin(self):
         return self._data
 
-    def tanslate(self, v: VectorLowDim) -> 'Point':
+    def translate(self, v: VectorLowDim) -> 'Point':
         return Point(self.origin() + v)
 
     def rotate_origin(self, axis: AxisBase, angle: float) -> 'Solid':

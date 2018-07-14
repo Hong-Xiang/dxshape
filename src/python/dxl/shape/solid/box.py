@@ -13,6 +13,9 @@ class Box(Solid):
             normal = SolidAngle(0.0, 0.0)
         self._normal = Vector3(normal)
 
+    def dim(self):
+        pass
+        
     def shape(self):
         return self._shape
 
