@@ -1,5 +1,8 @@
 from .base import Solid, Shape
-from ..utils.vector import VectorLowDim
+from ..utils.axes import AxisBase
+from ..utils.vector import VectorLowDim 
+from ..rotation.matrix import rotate3
+import numpy as np
 
 __all__ = ["Point"]
 
@@ -19,8 +22,8 @@ class Point(Shape):
     def tanslate(self, v: VectorLowDim) -> 'Point':
         return Point(self.origin() + v)
 
-    def rotate_origin(self, axis: AxisBase, angle: float) -> 'Solid' :
-        RotateMatrix=rotate3(theta=angle, axis=axis):
+    def rotate_origin(self, axis: AxisBase, angle: float) -> 'Solid':
+        RotateMatrix=rotate3(theta=angle, axis=axis)
         pRot=np.dot(RotateMatrix, self)
         return pRot
 
