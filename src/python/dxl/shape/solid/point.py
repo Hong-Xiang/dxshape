@@ -1,7 +1,7 @@
 from .base import Solid, Shape
 from ..utils.vector import VectorLowDim
 
-__all__ = [Point]
+__all__ = ["Point"]
 
 
 class Point(Shape):
