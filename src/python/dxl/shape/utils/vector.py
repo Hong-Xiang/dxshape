@@ -37,45 +37,69 @@ class VectorLowDim:
         self._data = np.array(data).reshape([self.dim()])
         if self.dim() is not None and self.data().size != self.dim():
             fmt = "Invalid data dimension {} when {} is expected for {}."
-            raise ValueError(fmt.format(self.data().size,
-                                        self.dim(), __class__))
+            raise ValueError(
+                fmt.format(self.data().size, self.dim(), __class__))
 
     @classmethod
     def zeros(cls):
         return cls(np.zeros([cls.dim()]))
 
     def __add__(self, v: 'VectorLowDim'):
-        return self.data() + v.data()
+        if isinstance(v, VectorLowDim):
+            data = v.data()
+        return self.__class__(self.data() + data)
 
     def __sub__(self, v: 'VectorLowDim'):
         return self.data() - v.data()
 
+    def __sub__(self, v: 'VectorLowDim'):
+        return self.__class__(self.data() - v.data())
+
+    def __eq__(self, v):
+        if isinstance(v, VectorLowDim):
+            raw_data = v._data
+        else:
+            raw_data = np.array(v)
+        return np.array_equal(self._data, raw_data)
+
+    def to_direction_vector(self):
+        return self.__class__(self.data() / np.linalg.norm(self.data()))
+
+    def __getitem__(self, i):
+        return self._data[i]
+
 
 class Vector1(VectorLowDim):
-    _dim = 1
-
     def x(self):
         return self.data()[0]
+
+    @classmethod
+    def dim(self):
+        return 1
 
 
 class Vector2(VectorLowDim):
-    _dim = 2
-
     def x(self):
         return self.data()[0]
 
     def y(self):
         return self.data()[1]
+
+    @classmethod
+    def dim(self):
+        return 2
 
 
 class Vector3(VectorLowDim):
-    _dim = 3
+    @classmethod
+    def dim(self):
+        return 3
 
     def x(self):
-        return self.data()[0]
+        return self.data()[0][0]
 
     def y(self):
-        return self.data()[1]
+        return self.data()[1][0]
 
     def z(self):
         return self.data()[2]
