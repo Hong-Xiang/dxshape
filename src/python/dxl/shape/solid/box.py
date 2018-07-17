@@ -7,7 +7,10 @@ import numpy as np
 import math
 
 class Box(Solid):
-    def __init__(self, shape: Vector3, origin: Vector3=None, normal: SolidAngle=None):
+    def __init__(self,
+                 shape: Vector3,
+                 origin: Vector3 = None,
+                 normal: SolidAngle = None):
         self._shape = Vector3(shape)
         if origin is None:
             origin = Vector3([0.0, 0.0, 0.0])
@@ -29,6 +32,9 @@ class Box(Solid):
         return self._origin
 
     def rotate_origin(self, angle: SolidAngle) -> 'Box':
+        pass
+
+    def rotate(self, axis, theta):
         pass
 
     def translate(self, v: VectorLowDim) -> 'Box':
