@@ -13,10 +13,10 @@ class Shape(metaclass=ABCMeta):
         pass
 
     def translate_origin(self, v: VectorLowDim):
-        return self.origin + v
+        return self.origin() - v
 
     @abstractmethod
-    def tanslate(self, v: VectorLowDim) -> 'Shape':
+    def translate(self, v: VectorLowDim) -> 'Shape':
         pass
 
     @abstractmethod
@@ -42,5 +42,5 @@ class Solid(Shape):
     def normal(self) -> VectorLowDim:
         pass
 
-    def is_collision(self, s: 'Shape') -> bool:
+    def is_collision(self, s: Shape) -> bool:
         pass
