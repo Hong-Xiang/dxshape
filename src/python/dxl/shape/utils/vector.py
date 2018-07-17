@@ -31,6 +31,9 @@ class VectorLowDim:
         - `TypeError` if given data with unsupported type.
         - `ValueError` if given data with invalid dimension.
         """
+        if isinstance(data, VectorLowDim):
+            self._data = data.data()
+            return 
         self._data = np.array(data).reshape([self.dim()])
         if self.dim() is not None and self.data().size != self.dim():
             fmt = "Invalid data dimension {} when {} is expected for {}."
@@ -44,7 +47,7 @@ class VectorLowDim:
     def __add__(self, v: 'VectorLowDim'):
         return self.data() + v.data()
 
-    def __reduce__(self, v: 'VectorLowDim'):
+    def __sub__(self, v: 'VectorLowDim'):
         return self.data() - v.data()
 
 
@@ -76,3 +79,6 @@ class Vector3(VectorLowDim):
 
     def z(self):
         return self.data()[2]
+
+    def __repr__(self):
+        return f"<Vector3(x={self.x()},y={self.y()},z={self.z()})>"
