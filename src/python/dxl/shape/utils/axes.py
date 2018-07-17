@@ -45,3 +45,22 @@ class Axes3:
 
 
 AXES3_STD = Axes3(AXIS3_X, AXIS3_Y, AXIS3_Z)
+
+class Axes:
+    def __init__(self, direction_vector: Vector3, origin: Vector3=None):
+        if isinstance(direction_vector, np.ndarray):
+            direction_vector = Vector3(direction_vector)
+        self._v = direction_vector
+        if origin is None:
+            origin = Vector3([0.0, 0.0, 0.0])
+        self._origin = Vector3(origin)
+
+    @property
+    def direction_vector(self) -> Vector3:
+        return self._v
+        
+    @property
+    def origin(self) -> Vector3:
+        return self._origin
+
+    

@@ -32,7 +32,7 @@ def axis_to_z(axis: Axis3) -> np.ndarray:
     """
     Rotation matrix rotate given axis to normal z axis
     """
-    axis_z = axis.direction_vector().z()
+    axis_z = axis.direction_vector().z() 
     rot_y = math.acos(axis_z)
     rot_z = math.atan2(axis.direction_vector().y(),
                        axis.direction_vector().x())

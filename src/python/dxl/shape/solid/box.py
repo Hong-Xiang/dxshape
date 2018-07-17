@@ -1,8 +1,10 @@
 from .base import Solid
+from .point import Point
 from ..utils.vector import VectorLowDim, Vector3
 from ..utils.angle import AngleBase, SolidAngle
-from .line import Line
-
+from ..rotation.matrix import axis_to_axis
+import numpy as np
+import math
 
 class Box(Solid):
     def __init__(self,
@@ -15,11 +17,10 @@ class Box(Solid):
         self._origin = Vector3(origin)
         if normal is None:
             normal = SolidAngle(0.0, 0.0)
-        self._normal = Vector3(normal).to_direction_vector()
+        self._normal = normal
 
-    @property
     def dim(self):
-        return 3
+        pass
 
     def shape(self):
         return self._shape
@@ -37,14 +38,7 @@ class Box(Solid):
         pass
 
     def translate(self, v: VectorLowDim) -> 'Box':
-        return Box(
-            shape=self.shape(),
-            origin=self.translate_origin(v),
-            normal=self.normal())
-
-    def edges(self) -> 'List[Line]':
-        pass
-
-    def __repr__(self):
-        return "<Box(shape={}, origin={}, normal={})>".format(
-            self._shape, self._origin, self._normal)
+        return Box(shape=self.shape(),
+                   origin=self.translate_origin(v),
+                   normal=self.normal())
+    
