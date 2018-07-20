@@ -1,5 +1,5 @@
 import numpy as np
-
+import math
 
 class Line:
     def __init__(self, intercept, direction):

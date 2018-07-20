@@ -1,6 +1,6 @@
 import numpy as np
-from ..utils.axes import Axes3, Axis3, AXIS3_X, AXIS3_Y, AXIS3_Z
-from ..utils.vector import Vector3
+from ..solid.axis import Axes3, Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
+#from ..utils.vector import Vector3
 from ..projection import projection_2to3, projection_3to2
 import math
 
@@ -15,7 +15,7 @@ def rotate2(theta: float):
     return np.array(((c, -s), (s, c)))
 
 
-def rotate3(theta: float, axis: Axis3):
+def rotate3(theta: float, axis: Axis):
     """
     Rotation alone specific axis.
 
@@ -28,7 +28,7 @@ def rotate3(theta: float, axis: Axis3):
     return rotate_matrix + identity_matrix
 
 
-def axis_to_z(axis: Axis3) -> np.ndarray:
+def axis_to_z(axis: Axis) -> np.ndarray:
     """
     Rotation matrix rotate given axis to normal z axis
     """
@@ -39,14 +39,14 @@ def axis_to_z(axis: Axis3) -> np.ndarray:
     return rotate3(rot_y, AXIS3_Y)@rotate3(-rot_z, AXIS3_Z)
 
 
-def z_to_axis(axis: Axes3):
+def z_to_axis(axis: Axis):
     """
     rotation matrix which rotate normal z axis to given axis
     """
-    axis_z = axis.direction_vector().z()
+    axis_z = axis.direction_vector[2]
     rot_y = math.acos(axis_z)
-    rot_z = math.atan2(axis.direction_vector().y(),
-                       axis.direction_vector().x())
+    rot_z = math.atan2(axis.direction_vector[1],
+                       axis.direction_vector[0])
     return rotate3(rot_z, AXIS3_Z)@rotate3(-rot_y, AXIS3_Y)
 
 
