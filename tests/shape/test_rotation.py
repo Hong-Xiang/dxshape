@@ -1,6 +1,6 @@
 import unittest
 from dxl.shape.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis
-from dxl.shape.solid.axis import Axis, AXIS3_X, AXIS3_Z
+from dxl.shape.solid.axis import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 #from dxl.shape.utils.vector import Vector3
 #from dxl.shape.utils.axes import Axis3, AXIS3_X, AXIS3_Z
 
@@ -31,7 +31,7 @@ class TestAxisToZ(unittest.TestCase):
             v = np.array(AXIS_VECTORS[i, :])
             ax = Axis(v)
             rot = axis_to_z(ax)
-            np.testing.assert_array_almost_equal(rot.dot(v),
+            np.testing.assert_array_almost_equal(np.dot(rot, v),
                                                  AXIS3_Z.direction_vector)
 
     def test_random_vectors(self):
@@ -39,7 +39,7 @@ class TestAxisToZ(unittest.TestCase):
             v = np.array(RANDOM_VECTORS[i, :])
             ax = Axis(v)
             rot = axis_to_z(ax)
-            np.testing.assert_array_almost_equal(rot.dot(v),
+            np.testing.assert_array_almost_equal(np.dot(rot, v),
                                                  AXIS3_Z.direction_vector)
 
 
@@ -75,5 +75,5 @@ class TestAxisToAxis(unittest.TestCase):
                 np.testing.assert_almost_equal(abs(det), 1.0)
                 np.testing.assert_array_almost_equal(m@v_src, v_tar)
 
-if __name__ is '__main__':
+if __name__ == '__main__':
     unittest.main()

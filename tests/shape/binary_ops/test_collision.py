@@ -1,6 +1,6 @@
-from dxl.shape import Point, Box
+from dxl.shape.solid import Point, Box
 from dxl.shape.binary_ops import is_collision
-
+import unittest
 
 def test_collision_in():
     p = Point([0, 0, 0])
@@ -12,3 +12,5 @@ def test_collision_not_in():
     b = Box([10, 10, 10], [0, 0, 0], [0, 0, 1])
     assert not is_collision(p, b) 
 
+if __name__ == '__main__':
+    unittest.main()
