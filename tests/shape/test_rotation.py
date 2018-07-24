@@ -1,8 +1,8 @@
 import unittest
-
-from dxl.shape.rotation.matrix import *
-from dxl.shape.utils.vector import Vector3
-from dxl.shape.utils.axes import Axis3, AXIS3_X, AXIS3_Z
+from dxl.shape.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis
+from dxl.shape.solid.axis import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
+#from dxl.shape.utils.vector import Vector3
+#from dxl.shape.utils.axes import Axis3, AXIS3_X, AXIS3_Z
 
 import numpy as np
 
@@ -28,51 +28,52 @@ AXIS_VECTORS = np.array([[0., 0., 1.],
 class TestAxisToZ(unittest.TestCase):
     def test_axis_vectors(self):
         for i in range(AXIS_VECTORS.shape[0]):
-            v = Vector3(AXIS_VECTORS[i, :])
-            ax = Axis3(v)
+            v = np.array(AXIS_VECTORS[i, :])
+            ax = Axis(v)
             rot = axis_to_z(ax)
-            np.testing.assert_array_almost_equal(rot@v.data(),
-                                                 AXIS3_Z.direction_vector().data())
+            np.testing.assert_array_almost_equal(np.dot(rot, v),
+                                                 AXIS3_Z.direction_vector)
 
     def test_random_vectors(self):
         for i in range(RANDOM_VECTORS.shape[0]):
-            v = Vector3(RANDOM_VECTORS[i, :])
-            ax = Axis3(v)
+            v = np.array(RANDOM_VECTORS[i, :])
+            ax = Axis(v)
             rot = axis_to_z(ax)
-            np.testing.assert_array_almost_equal(rot@v.data(),
-                                                 AXIS3_Z.direction_vector().data())
+            np.testing.assert_array_almost_equal(np.dot(rot, v),
+                                                 AXIS3_Z.direction_vector)
 
 
 class TestZToAxis(unittest.TestCase):
     def test_axis_vectors(self):
         for i in range(AXIS_VECTORS.shape[0]):
-            v = Vector3(AXIS_VECTORS[i, :])
-            ax = Axis3(v)
+            v = np.array(AXIS_VECTORS[i, :])
+            ax = Axis(v)
             rot = z_to_axis(ax)
-            np.testing.assert_array_almost_equal(rot@(AXIS3_Z.direction_vector()
-                                                      .data()),
-                                                 v.data())
+            np.testing.assert_array_almost_equal(rot@(AXIS3_Z.direction_vector),
+                                                 v)
 
     def test_random_vectors(self):
         for i in range(RANDOM_VECTORS.shape[0]):
-            v = Vector3(RANDOM_VECTORS[i, :])
-            ax = Axis3(v)
+            v = np.array(RANDOM_VECTORS[i, :])
+            ax = Axis(v)
             rot = z_to_axis(ax)
-            np.testing.assert_array_almost_equal(rot@(AXIS3_Z.direction_vector()
-                                                      .data()),
-                                                 v.data())
+            np.testing.assert_array_almost_equal(rot@(AXIS3_Z.direction_vector),
+                                                 v)
 
 
 class TestAxisToAxis(unittest.TestCase):
     def test_random_axis(self):
         data = np.concatenate([RANDOM_VECTORS, AXIS_VECTORS])
-        axis = [Axis3(Vector3(data[i, :]))
+        axis = [Axis(np.array(data[i, :]))
                 for i in range(data.shape[0])]
         for src in axis:
             for tar in axis:
-                v_tar = tar.direction_vector().data()
-                v_src = src.direction_vector().data()
+                v_tar = tar.direction_vector
+                v_src = src.direction_vector
                 m = axis_to_axis(src, tar)
                 det = np.linalg.det(m)
                 np.testing.assert_almost_equal(abs(det), 1.0)
                 np.testing.assert_array_almost_equal(m@v_src, v_tar)
+
+if __name__ == '__main__':
+    unittest.main()
