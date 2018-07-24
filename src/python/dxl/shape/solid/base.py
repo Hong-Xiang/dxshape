@@ -3,7 +3,7 @@ from ..utils import VectorLowDim, AngleBase, AxisBase
 from abc import ABCMeta, abstractmethod, abstractproperty
 import numpy as np
 
-class LinearSpace(Shape):
+class LinearSpace:
     @property
     def ndim(self):
         pass

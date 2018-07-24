@@ -1,4 +1,4 @@
-from .base import Solid
+from .base import Entity
 from .point import Point
 from ..utils.vector import VectorLowDim, Vector3
 from ..utils.angle import AngleBase, SolidAngle
@@ -6,7 +6,7 @@ from ..rotation.matrix import axis_to_axis
 import numpy as np
 import math
 
-class Box(Solid):
+class Box(Entity):
     def __init__(self,
                  shape: Vector3,
                  origin: Vector3 = None,
