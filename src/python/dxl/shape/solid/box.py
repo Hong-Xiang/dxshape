@@ -2,11 +2,13 @@ from .base import Entity
 import numpy as np
 import math
 
+
 class Box(Entity):
     __slot__ = ['shape', 'origin', 'normal']
-    def __init__(self, 
+
+    def __init__(self,
                  shape: np.ndarray,
-                 origin: np.ndarray = None,  
+                 origin: np.ndarray = None,
                  normal: np.ndarray = None):
         if isinstance(shape, (list, tuple)):
             shape = np.asarray(shape)
@@ -26,9 +28,9 @@ class Box(Entity):
         from dxl.shape.solid.point import Point
         p_origin = Point(self.origin)
         p_normal = Point(self.normal)
-        return self.replace(origin = p_origin._rotate_on_direction(direction, theta).origin,
-                            normal = p_normal._rotate_on_direction(direction, theta).origin)
-           
+        return self.replace(origin=p_origin._rotate_on_direction(direction, theta).origin,
+                            normal=p_normal._rotate_on_direction(direction, theta).origin)
+
     def is_collision(self, p: 'Entity') -> bool:
         from dxl.shape.solid.axis import Axis
         from dxl.shape.rotation.matrix import axis_to_z
@@ -44,9 +46,3 @@ class Box(Entity):
         if not isinstance(b, Box):
             return False
         return np.allclose(self.shape, b.shape) and np.allclose(self.origin, b.origin) and np.allclose(self.normal, b.normal)
-
-  
-
-            
-
-        
