@@ -49,8 +49,8 @@ class VectorLowDim:
             data = v.data()
         return self.__class__(self.data() + data)
 
-    def __sub__(self, v: 'VectorLowDim'):
-        return self.data() - v.data()
+    # def __sub__(self, v: 'VectorLowDim'):
+    #     return self.data() - v.data()
 
     def __sub__(self, v: 'VectorLowDim'):
         return self.__class__(self.data() - v.data())
@@ -60,7 +60,7 @@ class VectorLowDim:
             raw_data = v._data
         else:
             raw_data = np.array(v)
-        return np.array_equal(self._data, raw_data)
+        return np.array._equal(self._data, raw_data)
 
     def to_direction_vector(self):
         return self.__class__(self.data() / np.linalg.norm(self.data()))

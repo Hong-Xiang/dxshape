@@ -36,7 +36,7 @@ class AngleBase(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def from_direction_vector(cls, direction_vector) -> 'AngleBase':
+    def from_direction_vector(self, direction_vector) -> 'AngleBase':
         pass
 
 
@@ -86,7 +86,7 @@ class AngleRangeBase(metaclass=ABCMeta):
     @classmethod
     def _process_none_inputs(cls, start: AngleBase, end: AngleBase=None):
         if end is None:
-            return cls._vertex_cls(), start
+            return cls._vertex_cls, start
         else:
             return start, end
 
@@ -94,10 +94,10 @@ class AngleRangeBase(metaclass=ABCMeta):
         self._start, self._end = self._process_none_inputs(start, end)
 
     def start(self) -> AngleBase:
-        return _start
+        return self._start
 
     def end(self) -> AngleBase:
-        return _end
+        return self._end
 
     @abstractmethod
     def start_unit_vector(self) -> VectorLowDim:
@@ -108,7 +108,7 @@ class AngleRangeBase(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def from_direction_vectors(cls, direction_vector, end_vector=None) -> 'AngleRangeBase':
+    def from_direction_vectors(self, direction_vector, end_vector=None) -> 'AngleRangeBase':
         pass
 
 
