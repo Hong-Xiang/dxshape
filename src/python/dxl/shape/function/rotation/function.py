@@ -4,6 +4,7 @@ from .matrix import axis_to_z, rotate2, rotate3, z_to_axis
 
 __all__ = ['rotate']
 
+
 @singledispatch
 def rotate(o, axis_like, theta):
     raise TypeError(f"{type(o)} not support for rotate.")
@@ -12,8 +13,13 @@ def rotate(o, axis_like, theta):
 
 
 @rotate.register(Vector)
-def _(v, axis_like, theta):
-    return rotate_vector(v, Axis(axis_like), theta)
+def _(v, normal, theta):
+    return rotate_vector(v, normal, theta)
+
+
+@rotate.register(Entity)
+def _(e, axis_like, theta):
+    return e.rotate(axis_like, theta)
 
 
 def rotate_vector(v, a, theta):

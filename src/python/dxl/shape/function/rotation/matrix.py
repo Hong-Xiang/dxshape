@@ -28,8 +28,8 @@ def rotate3(theta: float, n: Vector) -> Matrix:
 
     Note `axis` must be one of `AXIS3_X`, `AXIS3_Y` and `AXIS3_Z`
     """
-    from ..projection import embed2to3, project3to2
-    rotate_matrix = embed2to3(n)@rotate2(theta)@project3to2(n)
+    from ..projection import embed2to3, proj3to2
+    rotate_matrix = embed2to3(n)@rotate2(theta)@proj3to2(n)
     if all_close(n, AXIS3_Y.normal):
         rotate_matrix = transpose(rotate_matrix)
     identity_matrix = np.zeros([3, 3])

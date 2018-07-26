@@ -11,7 +11,7 @@ class Axis(Entity):
 
     def __init__(self, normal: Vector, origin: Vector = None):
         if isinstance(normal, Axis):
-            normal, origin = normal.normal, normal.origin
+            normal, origin = Vector(normal.normal), Vector(normal.origin)
         self.normal = Vector(normal)
         if origin is None:
             origin = Vector([0.0, 0.0, 0.0])
@@ -20,6 +20,9 @@ class Axis(Entity):
     def rotate_on_direction(self, direction: Vector, theta: float):
         from dxl.shape.function import rotate
         return self.replace(normal=rotate(self.normal, direction, theta))
+
+    def fmap(self, f):
+        return Axis(f(self.normal), f(self.origin))
 
 
 AXIS3_X = Axis([1.0, 0.0, 0.0])

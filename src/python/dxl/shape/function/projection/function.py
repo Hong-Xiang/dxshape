@@ -10,7 +10,7 @@ __all__ = ['proj', 'embed']
 def proj(v: Vector, n: Vector):
     v, n = Vector(v), Vector(n)
     p = project(v, n)
-    return Vector([p[i] for i in range(v.size) if i != argmax(n)])
+    return Vector([p[(argmax(n) + i + 1) % len(p)] for i in range(v.size - 1)])
 
 
 def embed(v: Vector, n: Vector):
