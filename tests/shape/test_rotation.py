@@ -1,6 +1,6 @@
 import unittest
-from dxl.shape.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis
-from dxl.shape.solid.axis import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
+from dxl.shape.function.op_matrix import axis_to_axis, axis_to_z, z_to_axis
+from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 #from dxl.shape.utils.vector import Vector3
 #from dxl.shape.utils.axes import Axis3, AXIS3_X, AXIS3_Z
 
