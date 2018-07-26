@@ -14,7 +14,8 @@ def proj3to2(n: Vector) -> Matrix:
 
 
 def embed2to3(n: Vector) -> Matrix:
-    es = List([Vector([1.0, 0.0]),
-               Vector([0.0, 1.0])])
+    es = List([Vector([1.0, 0.0, 0.0]),
+               Vector([0.0, 1.0, 0.0]),
+               Vector([0.0, 0.0, 1.0])])
     vs = es.fmap(lambda v: embed(v, n)).fmap(lambda v: v.join())
     return transpose(Matrix(vs))

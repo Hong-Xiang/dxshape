@@ -1,5 +1,5 @@
 from dxl.shape.data import Vector, AXES3
-from dxl.function.tensor import norm, argmax
+from dxl.function.tensor import norm, argmax, abs_, unit
 
 
 def axis_x_of(n: Vector) -> Vector:
@@ -7,21 +7,19 @@ def axis_x_of(n: Vector) -> Vector:
     Returns:
         x axis if z is n.
     """
-    # FIXME add support for AXIS
-    n = Vector(n)
-    m = argmax(n)
+    # FIXME add support for AXIS, lazy vector
+    n = unit(Vector(n))
+    main_index_of_n = argmax(abs_(n))
     result = [0.0, 0.0, 0.0]
-    result[m] = n[m]
-    result[(m + 1) % 3] = - n[(m + 1) % 3]
-    result = Vector(result)
-    return result / norm(result)
+    main_index_of_result = (main_index_of_n + 1) % 3
+    result[main_index_of_result] = n[main_index_of_n]
+    result[main_index_of_n] = -n[main_index_of_result]
+    return unit(Vector(result))
 
 
 def axis_y_of(n: Vector) -> Vector:
-    n = Vector(n)
-    x = axis_x_of(n)
-    result = outer_product(n, x)
-    return result / norm(result)
+    n = unit(Vector(n))
+    return unit(outer_product(n, axis_x_of(n)))
 
 
 def outer_product(a: Vector, b: Vector):
