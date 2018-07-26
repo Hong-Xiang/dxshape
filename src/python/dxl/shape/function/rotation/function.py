@@ -1,7 +1,8 @@
 from functools import singledispatch
 from dxl.shape.data import Entity, Vector, Axis, AXES3
-from .op_matrix import axis_to_z, rotate2, rotate3, z_to_axis
+from .matrix import axis_to_z, rotate2, rotate3, z_to_axis
 
+__all__ = ['rotate']
 
 @singledispatch
 def rotate(o, axis_like, theta):

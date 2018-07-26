@@ -1,7 +1,7 @@
 import numpy as np
 
 from dxl.shape.data import AXIS3_Z, Axis
-from dxl.shape.function.op_matrix import (
+from dxl.shape.function.rotation.matrix import (
     axis_to_z, rotate2, rotate3, z_to_axis)
 from .axis import Axis
 from .base import Entity, Vector

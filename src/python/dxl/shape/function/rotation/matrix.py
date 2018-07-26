@@ -9,6 +9,8 @@ from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 import math
 from dxl.function.tensor import all_close
 
+__all__ = ['rotate2', 'rotate3', 'axis_to_z', 'z_to_axis', 'axis_to_axis']
+
 
 def rotate2(theta: float) -> Matrix:
     """
@@ -26,7 +28,7 @@ def rotate3(theta: float, n: Vector) -> Matrix:
 
     Note `axis` must be one of `AXIS3_X`, `AXIS3_Y` and `AXIS3_Z`
     """
-    from .op_matrix import embed2to3, project3to2
+    from ..projection import embed2to3, project3to2
     rotate_matrix = embed2to3(n)@rotate2(theta)@project3to2(n)
     if all_close(n, AXIS3_Y.normal):
         rotate_matrix = transpose(rotate_matrix)
@@ -48,22 +50,22 @@ def axis_dim_id(a):
     raise ValueError(f"Invalid axis for axis dim id: {a}")
 
 
-def axis_to_z(axis: Axis) -> Matrix:
+def axis_to_z(axis: Vector) -> Matrix:
     """
     Rotation matrix rotate given axis to normal z axis
     """
-    rot_y = math.acos(axis.normal.z)
-    rot_z = math.atan2(axis.normal.y, axis.normal.x)
-    return rotate3(-rot_y, AXIS3_Y)@rotate3(-rot_z, AXIS3_Z)
+    rot_y = math.acos(axis.z)
+    rot_z = math.atan2(axis.y, axis.x)
+    return rotate3(-rot_y, AXIS3_Y.normal)@rotate3(-rot_z, AXIS3_Z.normal)
 
 
-def z_to_axis(axis: Axis):
+def z_to_axis(axis: Vector):
     """
     rotation matrix which rotate normal z axis to given axis
     """
-    rot_y = math.acos(axis.normal.z)
-    rot_z = math.atan2(axis.normal.y, axis.normal.x)
-    return rotate3(rot_z, AXIS3_Z)@rotate3(rot_y, AXIS3_Y)
+    rot_y = math.acos(axis.z)
+    rot_z = math.atan2(axis.y, axis.x)
+    return rotate3(rot_z, AXIS3_Z.normal)@rotate3(rot_y, AXIS3_Y.normal)
 
 
 def axis_to_axis(source, target):
