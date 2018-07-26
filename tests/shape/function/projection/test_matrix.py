@@ -1,34 +1,26 @@
 import unittest
-from dxl.shape.function.projection import embed2to3, project3to2
+from dxl.shape.function.projection import embed2to3, proj3to2
 from dxl.function.tensor import all_close
-from dxl.shape.data import AXIS3_X, AXIS3_Y, AXIS3_Z, Vector
+from dxl.shape.data import Matrix
 import numpy as np
 import pytest
 
 
-class TestProjection3to2(unittest.TestCase):
-    def test_x(self):
-        v = project3to2(AXIS3_X.normal) @ Vector(np.arange(3))
-        assert all_close(v, Vector([1., 2.]))
+@pytest.mark.parametrize('n, expect', [
+    ([1.0, 0.0, 0.0], Matrix([[0.0, 1.0, 0.0], [0.0, 0.0, 1.0]])),
+    ([0.0, 1.0, 0.0], Matrix([[1.0, 0.0, 0.0], [0.0, 0.0, 1.0]])),
+    ([0.0, 0.0, 1.0], Matrix([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])),
+])
+def test_proj3to2(n, expect):
+    assert all_close(proj3to2(n), expect)
 
-    def test_y(self):
-        p = project3to2(AXIS3_Y.normal) @ Vector(np.arange(3))
-        assert all_close(p, Vector([0., 2.]))
+@pytest.mark.parametrize('n, expect', [
+    ([1.0, 0.0, 0.0], Matrix([[0.0, 0.0], [1.0, 0.0], [0.0, 1.0]])),
+    ([0.0, 1.0, 0.0], Matrix([[1.0, 0.0], [0.0, 0.0], [0.0, 1.0]])),
+    ([0.0, 0.0, 1.0], Matrix([[1.0, 0.0], [1.0, 0.0], [0.0, 0.0]])),
+])
+def test_embed2to3(n, expect):
+    assert all_close(proj3to2(n), expect)
 
-    def test_z(self):
-        p = project3to2(AXIS3_Z.normal) @ Vector(np.arange(3))
-        assert all_close(p, Vector([0., 1.]))
 
 
-class TestProjection2to3(unittest.TestCase):
-    def test_x(self):
-        p = embed2to3(AXIS3_X.normal) @ Vector([1.0, 1.0])
-        assert all_close(p, Vector([0., 1., 1.]))
-
-    def test_y(self):
-        p = embed2to3(AXIS3_Y.normal) @ Vector([1.0, 1.0])
-        assert all_close(p, Vector([1., 0., 1.]))
-
-    def test_z(self):
-        p = embed2to3(AXIS3_Z.normal) @ Vector([1.0, 1.0])
-        assert all_close(p, Vector([1., 1., 0.]))

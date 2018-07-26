@@ -3,8 +3,9 @@ from .function import proj, embed
 from dxl.function.tensor import transpose
 from dxl.data import List
 
+__all__ = ['proj3to2', 'embed2to3']
 
-def project3to2(n: Vector) -> Matrix:
+def proj3to2(n: Vector) -> Matrix:
     es = List([Vector([1.0, 0.0, 0.0]),
                Vector([0.0, 1.0, 0.0]),
                Vector([0.0, 0.0, 1.0])])
