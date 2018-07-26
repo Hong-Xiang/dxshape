@@ -4,7 +4,7 @@ import math
 
 
 class Box(Entity):
-    __slot__ = ['shape', 'origin', 'normal']
+    __slots__ = ['shape', 'origin', 'normal']
 
     def __init__(self,
                  shape: np.ndarray,

@@ -10,7 +10,7 @@ __all__ = ["Point"]
 
 
 class Point(Entity):
-    __slot__ = ['origin']
+    __slots__ = ['origin']
 
     def __init__(self, origin):
         self.origin = Vector(origin)
