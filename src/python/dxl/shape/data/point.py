@@ -23,6 +23,9 @@ class Point(Entity):
             origin = (axis_to_z(Axis(direction)) @ rotate3(theta, AXIS3_Z)
                       @ z_to_axis(Axis(direction)) @ self.origin)
             return self.replace(origin=origin)
+    
+    def fmap(self, f):
+        return Point(f(self.origin))
 
     def is_in(self, s: 'Entity') -> bool:
         return s.is_collision(self)

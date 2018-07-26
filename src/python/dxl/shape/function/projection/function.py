@@ -16,4 +16,4 @@ def proj(v: Vector, n: Vector):
 def embed(v: Vector, n: Vector):
     v, n = Vector(v), Vector(n)
     from ..axes import axis_x_of, axis_y_of
-    return Vector([axis_x_of(n) * v.x, axis_y_of(n) * v.y])
+    return axis_x_of(n) * v.x + axis_y_of(n) * v.y
