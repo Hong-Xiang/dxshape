@@ -2,6 +2,7 @@ from functools import singledispatch
 from dxl.shape.data import Entity, Vector, Axis, AXES3
 from .matrix import axis_to_z, rotate2, rotate3, z_to_axis
 
+
 __all__ = ['rotate']
 
 

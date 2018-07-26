@@ -15,7 +15,7 @@ class Axis(Entity):
         self.normal = Vector(normal)
         if origin is None:
             origin = Vector([0.0, 0.0, 0.0])
-        self.origin = origin
+        self.origin = Vector(origin)
 
     def rotate_on_direction(self, direction: Vector, theta: float):
         from dxl.shape.function import rotate

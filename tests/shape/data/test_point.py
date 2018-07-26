@@ -2,11 +2,12 @@ import unittest
 import numpy as np
 import math
 from dxl.shape.data import Point, Box, Vector
-from dxl.shape.data import AXIS3_X, AXIS3_Y, AXIS3_Z, Axis
+from dxl.shape.data import AXIS3_X, AXIS3_Y, AXIS3_Z, Axis, AXES3
 from dxl.shape.function import testing
 from dxl.function.tensor import all_close
 
 import pytest
+
 
 class TestPoint(unittest.TestCase):
     def test_init(self):
@@ -40,13 +41,22 @@ class TestPoint(unittest.TestCase):
         self.assertAlmostEquals(p._rotate_on_direction(
             direction_z, theta), Point(np.array([-2.0, 1.0, 0.0])))
 
-    def test_rotate(self):
+    def test_rotate_x(self):
         p = Point(origin=np.array([0.0, 2.0, 0.0]))
-        axis = Axis(normal=[-1.0, 0.0, 0.0],
-                    origin=np.array([0.0, 1.0, 0.0]))
-        the = math.pi / 2
-        p_rotate = p.rotate(axis, the)
-        self.assertAlmostEqual(p_rotate, Point([0.0, 1.0, -1.0]))
+        assert testing.all_close(p.rotate(AXES3.x, math.pi / 2),
+                                 Point([0.0, 0.0, 2.0]))
+
+    def test_rotate_neg_x(self):
+        p = Point(origin=np.array([0.0, 2.0, 0.0]))
+        axis = Axis(normal=[-1.0, 0.0, 0.0])
+        assert testing.all_close(p.rotate(axis, math.pi / 2),
+                                 Point([0.0, 0.0, -2.0]))
+
+    def test_rotate_not_origin(self):
+        p = Point(origin=np.array([0.0, 2.0, 0.0]))
+        axis = Axis(normal=[0.0, 0.0, 1.0], origin=[0.0, 1.0, 0.0])
+        assert testing.all_close(p.rotate(axis, math.pi / 2),
+                                 Point([0.0, -1.0, 1.0]))
 
     def test_is_in(self):
         p1 = Point([0, 0, 0])
