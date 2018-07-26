@@ -28,12 +28,15 @@ def rotate3(theta: float, n: Vector) -> Matrix:
 
     Note `axis` must be one of `AXIS3_X`, `AXIS3_Y` and `AXIS3_Z`
     """
-    from ..projection import embed2to3, project3to2
-    rotate_matrix = embed2to3(n)@rotate2(theta)@project3to2(n)
+    from ..projection import embed2to3, proj3to2
+    # FIXME clear impl
+    if isinstance(n, Axis):
+        n = n.normal
+    rotate_matrix = embed2to3(n)@rotate2(theta)@proj3to2(n)
     if all_close(n, AXIS3_Y.normal):
         rotate_matrix = transpose(rotate_matrix)
     identity_matrix = np.zeros([3, 3])
-    identity_dim = axis_dim_id(axis)
+    identity_dim = axis_dim_id(n)
     identity_matrix[identity_dim, identity_dim] = 1.0
     identity_matrix = Matrix(identity_matrix)
     result = rotate_matrix + identity_matrix
@@ -41,11 +44,11 @@ def rotate3(theta: float, n: Vector) -> Matrix:
 
 
 def axis_dim_id(a):
-    if all_close(a.normal, AXIS3_X.normal):
+    if all_close(a, AXIS3_X.normal):
         return 0
-    if all_close(a.normal, AXIS3_Y.normal):
+    if all_close(a, AXIS3_Y.normal):
         return 1
-    if all_close(a.normal, AXIS3_Z.normal):
+    if all_close(a, AXIS3_Z.normal):
         return 2
     raise ValueError(f"Invalid axis for axis dim id: {a}")
 

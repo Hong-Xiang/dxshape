@@ -10,10 +10,10 @@ __all__ = ['proj', 'embed']
 def proj(v: Vector, n: Vector):
     v, n = Vector(v), Vector(n)
     p = project(v, n)
-    return Vector([p[i] for i in range(v.size) if i != argmax(n)])
+    return Vector([p[(argmax(n) + i + 1) % len(p)] for i in range(v.size - 1)])
 
 
 def embed(v: Vector, n: Vector):
     v, n = Vector(v), Vector(n)
     from ..axes import axis_x_of, axis_y_of
-    return Vector([axis_x_of(n) * v.x, axis_y_of(n) * v.y])
+    return axis_x_of(n) * v.x + axis_y_of(n) * v.y

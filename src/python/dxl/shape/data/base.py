@@ -5,6 +5,8 @@ from dxl.data import DataClass
 from dxl.data.tensor import Vector, Matrix
 from dxl.function import replace
 from dxl.function.tensor import all_close
+from dxl.data import Functor
+
 
 __all__ = ['Existence', 'Entity']
 
@@ -15,21 +17,24 @@ class Existence(DataClass):
         pass
 
 
-class Entity(Existence):
+class Entity(Existence, Functor):
     @property
     def ndim(self):
         return len(self.origin)
 
     def translate(self, v: Vector):
-        return replace(self, origin=np.array(self.origin) + v)
+        return replace(self, origin=self.origin + v)
+
+    def fmap(self, f):
+        pass
 
     @abstractmethod
     def rotate_on_direction(self, direction, theta):
         pass
 
     def rotate(self, axis: 'Axis', theta):
-        if all_close(axis.origin, 0.0):
-            return self.rotate_on_direction(axis.direction_vector, theta)
+        from dxl.shape.function import rotate
         return (self.translate(-axis.origin)
-                .rotate_on_direction(axis.direction_vector, theta)
+                .fmap(lambda v: rotate(v, axis.normal, theta))
+                # .rotate_on_direction(axis.direction_vector, theta)
                 .translate(axis.origin))
