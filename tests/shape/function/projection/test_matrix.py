@@ -43,3 +43,4 @@ def test_proj3to2_embed2to3(n):
 def test_embed2to3_proj3to2(n, expect):
     assert all_close(embed2to3(n) @ proj3to2(n),
                      expect)
+

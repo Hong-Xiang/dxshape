@@ -24,7 +24,7 @@ def _(e, axis_like, theta):
 
 
 def rotate_vector(v, a, theta):
-    return axis_to_z(a) @ rotate_of_dim(theta, v.ndim) @ z_to_axis(a) @ v
+    return  z_to_axis(a) @ rotate_of_dim(theta, v.ndim) @  axis_to_z(a) @ v
 
 
 def rotate_of_dim(theta, dim):

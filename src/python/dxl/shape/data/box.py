@@ -8,22 +8,16 @@ class Box(Entity):
     __slots__ = ['shape', 'origin', 'normal']
 
     def __init__(self,
-                 shape: np.ndarray,
-                 origin: np.ndarray = None,
-                 normal: np.ndarray = None):
-        if isinstance(shape, (list, tuple)):
-            shape = np.asarray(shape)
-        self.shape = shape
+                 shape: Vector,
+                 origin: Vector = None,
+                 normal: Vector = None):
+        self.shape = Vector(shape)
         if origin is None:
-            origin = np.array([0.0, 0.0, 0.0])
-        if isinstance(origin, (list, tuple)):
-            origin = np.asarray(origin)
-        self.origin = origin
+            origin = Vector([0.0, 0.0, 0.0])
+        self.origin = Vector(origin)
         if normal is None:
-            normal = np.array([0.0, 0.0, 1.0])
-        if isinstance(normal, (list, tuple)):
-            normal = np.asarray(normal)
-        self.normal = normal
+            normal = Vector([0.0, 0.0, 1.0])
+        self.normal = Vector(normal)
 
     # def rotate_on_direction(self, direction, theta):
     #     from .point import Point

@@ -1,10 +1,11 @@
 import unittest
 import numpy as np
 import math
-from dxl.shape.solid.box import Box
-from dxl.shape.solid.point import Point
-from dxl.shape.solid.axis import Axis
+from dxl.shape.data.box import Box
+from dxl.shape.data.point import Point
+from dxl.shape.data.axis import Axis
 from dxl.shape.histogram.histo_point_box import histo_points_to_box
+import pytest
 
 def test_histo_point_box_1_0(self):
     p1 = Point([[1,2,5]])

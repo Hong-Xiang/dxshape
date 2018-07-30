@@ -16,7 +16,7 @@ def histo_points_to_box(points: list, box: Box, bias: list, weights: list = None
         weights = weights
     num = [int(box.shape[i]/bias[i]) for i in range(3)]
     result = np.zeros(num)
-    points0 = [Point(axis_to_z(Axis(box.normal)).dot(p.translate(-np.array(box.origin)).origin)) for p in points]
+    points0 = [Point(axis_to_z(Axis(box.normal)).dot(p.translate(-box.origin).origin)) for p in points]
     for p,w in zip(points0, weights):
         if p.is_in(box) is True:
             ix = int((p.origin[0] + 0.5* box.shape[0]) / bias[0])
