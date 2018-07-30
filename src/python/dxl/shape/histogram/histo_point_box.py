@@ -16,15 +16,15 @@ def histo_points_to_box(points: list, box: Box, bias: list, weights: list = None
         weights = weights
     num = [int(box.shape[i]/bias[i]) for i in range(3)]
     result = np.zeros(num)
-    points0 = [Point(axis_to_z(Axis(box.normal)).dot(p.translate(-box.origin).origin)) for p in points]
+    points0 = [Point(axis_to_z(Axis(box.normal)) @ (p.translate(-box.origin).origin)) for p in points]
     for p,w in zip(points0, weights):
         if p.is_in(box) is True:
-            ix = int((p.origin[0] + 0.5* box.shape[0]) / bias[0])
-            iy = int((p.origin[1] + 0.5* box.shape[1]) / bias[1])
-            iz = int((0.5* box.shape[2] - p.origin[2]) / bias[2])
-            print([ix, iy, iz])
+            ix = int((p.origin.x + 0.5* box.shape.x) / bias[0])
+            iy = int((p.origin.y + 0.5* box.shape.y) / bias[1])
+            iz = int((0.5* box.shape.z - p.origin.z) / bias[2])
+            #print([ix, iy, iz])
             result[ix][iy][iz] += w
-            print(result[ix][iy][iz])
+            #print(result[ix][iy][iz])
         else:
             pass
     return result 
