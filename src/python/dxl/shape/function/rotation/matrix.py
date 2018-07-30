@@ -1,13 +1,12 @@
 from functools import singledispatch
-from dxl.shape.data import Vector, Axis, Matrix
+from dxl.shape.data import  Axis, Matrix, AXIS3_X, AXIS3_Y, AXIS3_Z
 import numpy as np
-
-from dxl.function.tensor import transpose
+from dxl.data.tensor.vector import Vector
+from dxl.function.tensor import transpose, all_close
 
 import numpy as np
-from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 import math
-from dxl.function.tensor import all_close
+#from dxl.function.tensor import 
 
 __all__ = ['rotate2', 'rotate3', 'axis_to_z', 'z_to_axis', 'axis_to_axis']
 
@@ -33,8 +32,6 @@ def rotate3(theta: float, n: Vector) -> Matrix:
     if isinstance(n, Axis):
         n = n.normal
     rotate_matrix = embed2to3(n)@rotate2(theta)@proj3to2(n)
-    # if all_close(n, AXIS3_Y.normal):
-        # rotate_matrix = transpose(rotate_matrix)
     identity_matrix = np.zeros([3, 3])
     identity_dim = axis_dim_id(n)
     identity_matrix[identity_dim, identity_dim] = 1.0

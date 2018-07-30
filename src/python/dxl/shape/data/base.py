@@ -28,9 +28,9 @@ class Entity(Existence, Functor):
     def fmap(self, f):
         pass
 
-    @abstractmethod
-    def rotate_on_direction(self, direction, theta):
-        pass
+    # @abstractmethod
+    # def rotate_on_direction(self, direction, theta):
+    #     pass
 
     def rotate(self, axis: 'Axis', theta):
         from dxl.shape.function import rotate

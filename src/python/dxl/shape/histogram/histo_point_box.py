@@ -1,9 +1,9 @@
 import numpy as np 
 import math
-from ..solid.box import Box
-from ..solid.point import Point
-from ..solid.axis import Axis
-from ..rotation.matrix import axis_to_z 
+from ..data.box import Box
+from ..data.point import Point
+from ..data.axis import Axis
+from ..function.rotation.matrix import axis_to_z 
 
 def histo_points_to_box(points: list, box: Box, bias: list, weights: list = None):
     """

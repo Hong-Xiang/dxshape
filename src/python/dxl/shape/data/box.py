@@ -1,4 +1,5 @@
 from .base import Entity, Vector
+from dxl.function.tensor.compare import all_close
 import numpy as np
 import math
 
@@ -24,19 +25,17 @@ class Box(Entity):
             normal = np.asarray(normal)
         self.normal = normal
 
-    def rotate_on_direction(self, direction, theta):
-        from .point import Point
-        p_origin = Point(self.origin)
-        p_normal = Point(self.normal)
-        return self.replace(origin=p_origin._rotate_on_direction(direction, theta).origin,
-                            normal=p_normal._rotate_on_direction(direction, theta).origin)
+    # def rotate_on_direction(self, direction, theta):
+    #     from .point import Point
+    #     p_origin = Point(self.origin)
+    #     p_normal = Point(self.normal)
+    #     return self.replace(origin=p_origin._rotate_on_direction(direction, theta).origin,
+    #                         normal=p_normal._rotate_on_direction(direction, theta).origin)
 
     def is_collision(self, p: 'Entity') -> bool:
-        from .axis import Axis
-        from dxl.shape.function.rotation import axis_to_z
-        p_tran = p.translate(self.origin)
-        rot_matrix = axis_to_z(self.normal)
-        p_tran_rot = np.dot(rot_matrix, p_tran.origin)
+        from dxl.shape.data.axis import Axis
+        from dxl.shape.function.rotation.matrix import axis_to_z 
+        p_tran_rot = axis_to_z(self.normal) @ p.translate(-self.origin).origin
         for i in range(3):
             if any(abs(p_tran_rot) > self.shape[i] / 2):
                 return False
@@ -48,4 +47,4 @@ class Box(Entity):
     def __eq__(self, b):
         if not isinstance(b, Box):
             return False
-        return np.allclose(self.shape, b.shape) and np.allclose(self.origin, b.origin) and np.allclose(self.normal, b.normal)
+        return all_close(self.shape, b.shape) and all_close(self.origin, b.origin) and all_close(self.normal, b.normal)
