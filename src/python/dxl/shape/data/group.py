@@ -1,11 +1,11 @@
 from .base import Entity
-from dxl.data import List
+from dxl.data import List, Functor
 from dxl.function import concat
 
 __all__ = ['Group']
 
 
-class Group:
+class Group(Functor[Entity]):
     def __init__(self, es):
         self.es = List(es)
 
@@ -23,6 +23,13 @@ class Group:
 
     def __repr__(self):
         return f"<Group({self.es})>"
+
+
+class CartesianRepeated(Group):
+    def __init__(self, prototype, steps, grids):
+        from dxl.shape.function.box import moves, offsets
+        super().__init__((moves(offsets(steps, grids, prototype.origin))
+                          .fmap(lambda v: prototype.translate(v))))
 
 
 def flatten_kernel(e):

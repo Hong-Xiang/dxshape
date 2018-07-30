@@ -5,17 +5,17 @@ from dxl.shape.data import Vector
 
 def divide(b: Box, grid: List[int]) -> List[Box]:
     subbox_prototype = Box(sub_box_shape(b, grid))
-    return moves(offsets(b, grid)).fmap(lambda v: subbox_prototype.translate(v))
+    return (moves(offsets(sub_box_shape(b, grid), b.origin, grid))
+            .fmap(lambda v: subbox_prototype.translate(v)))
 
 
 def sub_box_shape(b: Box, grid: List[int]) -> Vector:
     return Vector([s / g for s, g in zip(b.shape, grid)])
 
 
-def offsets(b: Box, grid: List[int]) -> Vector:
-    step = sub_box_shape(b, grid)
+def offsets(step, origin, grid: List[int]) -> Vector:
     steps = [[s*i - o/2 for i in range(g)]
-             for s, g, o in zip(step, grid, b.origin)]
+             for s, g, o in zip(step, grid, origin)]
     return steps
 
 
