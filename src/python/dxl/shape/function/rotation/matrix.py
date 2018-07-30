@@ -33,8 +33,8 @@ def rotate3(theta: float, n: Vector) -> Matrix:
     if isinstance(n, Axis):
         n = n.normal
     rotate_matrix = embed2to3(n)@rotate2(theta)@proj3to2(n)
-    if all_close(n, AXIS3_Y.normal):
-        rotate_matrix = transpose(rotate_matrix)
+    # if all_close(n, AXIS3_Y.normal):
+        # rotate_matrix = transpose(rotate_matrix)
     identity_matrix = np.zeros([3, 3])
     identity_dim = axis_dim_id(n)
     identity_matrix[identity_dim, identity_dim] = 1.0
