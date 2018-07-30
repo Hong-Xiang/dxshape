@@ -1,4 +1,5 @@
-from dxl.shape.function.box import offsets, sub_box_shape, Box, Vector, List
+from dxl.shape.function.box import Box, Vector, List, divide, sub_box_shape
+from dxl.shape.data import Group
 from dxl.function.tensor import all_close
 
 
@@ -7,6 +8,7 @@ def test_sub_box_shape():
                      Vector([0.1, 0.05, 0.1]))
 
 
-def test_offsets():
-    assert (offsets(Box([1.0, 2.0, 3.0]), [2, 4, 6])
-            == [[0.0, 0.5], [0.0, 0.5, 1.0, 1.5], [0.0, 0.5, 1.0, 1.5, 2.0, 2.5]])
+def test_divide():
+    result = divide(Box([1.0, 2.0, 3.0]), [10, 20, 30])
+    assert isinstance(result, List)
+    assert len(result) == 10 * 20 * 30
