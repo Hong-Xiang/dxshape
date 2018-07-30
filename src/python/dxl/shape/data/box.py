@@ -1,7 +1,8 @@
 from .base import Entity, Vector
-from dxl.function.tensor.compare import all_close
+from dxl.function.tensor import all_close, abs_
 import numpy as np
 import math
+
 
 
 class Box(Entity):
@@ -30,8 +31,9 @@ class Box(Entity):
         from dxl.shape.data.axis import Axis
         from dxl.shape.function.rotation.matrix import axis_to_z 
         p_tran_rot = axis_to_z(self.normal) @ p.translate(-self.origin).origin
+        # FIXME: add __ge__ to Vector
         for i in range(3):
-            if any(abs(p_tran_rot) > self.shape[i] / 2):
+            if any(abs_(p_tran_rot).join() > self.shape[i] / 2):
                 return False
         return True
 
