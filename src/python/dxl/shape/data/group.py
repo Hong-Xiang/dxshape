@@ -2,7 +2,7 @@ from .base import Entity
 from dxl.data import List, Functor
 from dxl.function import concat
 
-__all__ = ['Group']
+__all__ = ['Group', 'CartesianRepeated']
 
 
 class Group(Functor[Entity]):
@@ -27,8 +27,8 @@ class Group(Functor[Entity]):
 
 class CartesianRepeated(Group):
     def __init__(self, prototype, steps, grids):
-        from dxl.shape.function.box import moves, offsets
-        super().__init__((moves(offsets(steps, grids, prototype.origin))
+        from dxl.shape.function.group import moves, offsets
+        super().__init__((moves(offsets(steps, prototype.origin, grids))
                           .fmap(lambda v: prototype.translate(v))))
 
 
