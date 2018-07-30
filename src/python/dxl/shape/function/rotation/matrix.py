@@ -34,7 +34,7 @@ def rotate3(theta: float, n: Vector) -> Matrix:
         n = n.normal
     rotate_matrix = embed2to3(n)@rotate2(theta)@proj3to2(n)
     # if all_close(n, AXIS3_Y.normal):
-        # rotate_matrix = transpose(rotate_matrix)
+    # rotate_matrix = transpose(rotate_matrix)
     identity_matrix = np.zeros([3, 3])
     identity_dim = axis_dim_id(n)
     identity_matrix[identity_dim, identity_dim] = 1.0
@@ -57,6 +57,7 @@ def axis_to_z(axis: Vector) -> Matrix:
     """
     Rotation matrix rotate given axis to normal z axis
     """
+    axis = Vector(axis)
     rot_y = math.acos(axis.z)
     rot_z = math.atan2(axis.y, axis.x)
     return rotate3(-rot_y, AXIS3_Y.normal)@rotate3(-rot_z, AXIS3_Z.normal)
@@ -66,6 +67,7 @@ def z_to_axis(axis: Vector):
     """
     rotation matrix which rotate normal z axis to given axis
     """
+    axis = Vector(axis)
     rot_y = math.acos(axis.z)
     rot_z = math.atan2(axis.y, axis.x)
     return rotate3(rot_z, AXIS3_Z.normal)@rotate3(rot_y, AXIS3_Y.normal)
@@ -77,4 +79,5 @@ def axis_to_axis(source, target):
     Implemented by firstly roteta source axis to `AXES3_STD.z`, and then rotate
     `AXES3_STD.z` to target axis.
     """
+    source, target = Vector(source), Vector(target)
     return z_to_axis(target)@axis_to_z(source)
