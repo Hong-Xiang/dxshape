@@ -1,5 +1,5 @@
 import unittest
-from dxl.shape.function.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis
+from dxl.shape.function.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis, rotate2, rotate3
 from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 from dxl.shape.data import Vector
 from dxl.function.tensor import all_close
@@ -8,7 +8,7 @@ import itertools
 #from dxl.shape.utils.vector import Vector3
 #from dxl.shape.utils.axes import Axis3, AXIS3_X, AXIS3_Z
 import pytest
-
+import math
 import numpy as np
 
 RANDOM_VECTORS = List([[0.40980446,  0.56395448, -0.71694885],
@@ -28,6 +28,21 @@ AXIS_VECTORS = List([[0., 0., 1.],
                      [-1., 0., 0.],
                      [0., -1., 0.],
                      [0., 0., -1.]]).fmap(Vector)
+
+POINT_VECTORS = List([[1.0, 2.0, 0.0],
+                      [1.0, 0.0, 2.0],
+                      [0.0, 2.0, -1.0],
+                      [-2.0, 1.0, 0.0]]).fmap(Vector)
+
+class TestRotate:
+    def test_rotate2(self):
+        rot = rotate2(math.pi / 3)
+        assert all_close(rot, [[0.5, -math.sqrt(3)/2], [math.sqrt(3)/2, 0.5]])
+
+    @pytest.mark.parametrize('v, expect', [AXIS_VECTORS[0:3], POINT_VECTORS[1:4]])
+    def test_rotate3(self, v, expect):
+        rot = rotate3(math.pi/2, v)
+        assert all_close(rot@POINT_VECTORS[0], expect) 
 
 
 class TestAxisToZ:

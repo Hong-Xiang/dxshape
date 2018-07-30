@@ -19,7 +19,8 @@ class Axis(Entity):
 
     def rotate_on_direction(self, direction: Vector, theta: float):
         from dxl.shape.function import rotate
-        return self.replace(normal=rotate(self.normal, direction, theta))
+        return self.replace(normal = rotate(self.normal, direction, theta),
+                            origin = rotate(self.origin, direction, theta))
 
     def fmap(self, f):
         return Axis(f(self.normal), f(self.origin))

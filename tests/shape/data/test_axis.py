@@ -32,8 +32,6 @@ class TestAxis(unittest.TestCase):
         assert all_close(a_rot_z.origin, [-2.0, 1.0, 0.0])
         assert all_close(a_rot_z.normal, [-1.0, 0.0, 0.0])
 
-
-class TestAxis(unittest.TestCase):
     def test_construction(self):
         ax = Axis([1.0, 0.0, 0.0])
         self.assertEqual(ax.normal.x, 1.0)
