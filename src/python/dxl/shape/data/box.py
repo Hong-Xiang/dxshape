@@ -7,9 +7,9 @@ class Box(Entity):
     __slots__ = ['shape', 'origin', 'normal']
 
     def __init__(self,
-                 shape: np.ndarray,
-                 origin: np.ndarray = None,
-                 normal: np.ndarray = None):
+                 shape: Vector,
+                 origin: Vector = None,
+                 normal: Vector = None):
         if isinstance(shape, (list, tuple)):
             shape = np.asarray(shape)
         self.shape = shape
