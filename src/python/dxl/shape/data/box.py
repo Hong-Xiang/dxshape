@@ -30,12 +30,20 @@ class Box(Entity):
     def is_collision(self, p: 'Entity') -> bool:
         from dxl.shape.data.axis import Axis
         from dxl.shape.function.rotation.matrix import axis_to_z 
-        p_tran_rot = axis_to_z(self.normal) @ p.translate(-self.origin).origin
-        # FIXME: add __ge__ to Vector
-        for i in range(3):
-            if any(abs_(p_tran_rot).join() > self.shape[i] / 2):
-                return False
-        return True
+        from dxl.function.tensor import transpose
+        p_tran_rot = p.translate(-self.origin).origin @ transpose(axis_to_z(self.normal))
+        #print(p_tran_rot)
+        if ((-self.shape.x / 2 <= p_tran_rot.x < self.shape.x / 2) and
+            (-self.shape.y / 2 <= p_tran_rot.y < self.shape.y / 2) and
+            (-self.shape.z / 2 <= p_tran_rot.z < self.shape.z / 2)):
+            return True
+        else:
+            return False
+             
+        # for i in range(3):
+        #     if all(-self.shape[i] / 2 < p_tran_rot < self.shape[i] / 2) or all(p_tran_rot[i] == -self.shape[i] / 2):
+        #         return True
+        # return False
 
     def fmap(self, f):
         return Box(self.shape, f(self.origin), f(self.normal))
