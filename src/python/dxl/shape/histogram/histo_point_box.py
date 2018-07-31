@@ -1,30 +1,32 @@
 import numpy as np 
 import math
-from ..data.box import Box
-from ..data.point import Point
-from ..data.axis import Axis
-from ..function.rotation.matrix import axis_to_z 
+import random
+from dxl.shape.data.box import Box
+from dxl.shape.data.point import Point
+from dxl.shape.data.axis import Axis
+from dxl.shape.function.box import divide
+from dxl.data.tensor import Tensor, Vector
 
-def histo_points_to_box(points: list, box: Box, bias: list, weights: list = None):
+def histo_points_to_box(points: list, box: Box, grid: list, weights: list = None):
     """
-    bias is the grid size, 
+    grid is the grid num, 
     when weights is none, result is number collection matrix 
     """
     if weights is None:
         weights = [1.0] * len(points)
     else:
         weights = weights
-    num = [int(box.shape[i]/bias[i]) for i in range(3)]
-    result = np.zeros(num)
-    points0 = [Point(axis_to_z(Axis(box.normal)) @ (p.translate(-box.origin).origin)) for p in points]
-    for p,w in zip(points0, weights):
-        if p.is_in(box) is True:
-            ix = int((p.origin.x + 0.5* box.shape.x) / bias[0])
-            iy = int((p.origin.y + 0.5* box.shape.y) / bias[1])
-            iz = int((0.5* box.shape.z - p.origin.z) / bias[2])
-            #print([ix, iy, iz])
-            result[ix][iy][iz] += w
-            #print(result[ix][iy][iz])
-        else:
-            pass
-    return result 
+    result = np.zeros(grid)
+    subbox = divide(box, grid)
+    subbox = [b.translate(b.shape / 2 - box.shape / 2) for b in subbox]
+    p_index = list()
+    for p, w in zip(points, weights):
+        for b in subbox:
+            if b.is_collision(p) == True:
+                p_index.append(b.origin)
+                ix = int(((b.origin.x - box.origin.x) + 0.5* box.shape.x) / b.shape.x)
+                iy = int(((b.origin.y - box.origin.y)+ 0.5* box.shape.y) / b.shape.y)
+                iz = int((0.5* box.shape.z - (b.origin.z - box.origin.z)) / b.shape.z)
+                result[ix, iy, iz] += w
+                #print([ix, iy,iz])
+    return p_index, Tensor(result)
