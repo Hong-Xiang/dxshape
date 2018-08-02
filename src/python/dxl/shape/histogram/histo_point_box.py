@@ -18,7 +18,7 @@ def histo_points_to_box(points: list, box: Box, grid: list, weights: list = None
         weights = weights
     result = np.zeros(grid)
     subbox = divide(box, grid)
-    subbox = [b.translate(b.shape / 2 - box.shape / 2) for b in subbox]
+    #subbox = [b.translate(b.shape / 2 - box.shape / 2) for b in subbox]
     p_index = list()
     for p, w in zip(points, weights):
         for b in subbox:

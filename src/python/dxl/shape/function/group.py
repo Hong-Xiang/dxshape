@@ -3,20 +3,24 @@ from dxl.data import List
 from dxl.shape.data import Vector
 
 
-def divide(b: Box, grid: List[int]) -> List[Box]:
-    subbox_prototype = Box(sub_box_shape(b, grid))
-    return (moves(offsets(sub_box_shape(b, grid), b.origin, grid))
-            .fmap(lambda v: subbox_prototype.translate(v)))
+# def divide(b: Box, grid: List[int]) -> List[Box]:
+#     subbox_prototype = Box(sub_box_shape(b, grid), b.origin)
+#     return (moves(offsets(sub_box_shape(b, grid), b.origin, grid))
+#             .fmap(lambda v: subbox_prototype.translate(v)))
 
+def offsets(step, grid: List[int]):
+    steps = [[s*i for i in range(g)]
+             for s, g in zip(step, grid)]
+    return steps
 
 def sub_box_shape(b: Box, grid: List[int]) -> Vector:
     return Vector([s / g for s, g in zip(b.shape, grid)])
 
 
-def offsets(step, origin, grid: List[int]) -> Vector:
-    steps = [[s*i - o/2 for i in range(g)]
-             for s, g, o in zip(step, grid, origin)]
-    return steps
+# def offsets(step, origin, grid: List[int]) -> Vector:
+#     steps = [[s*i - o/2 for i in range(g)]
+#              for s, g, o in zip(step, grid, origin)]
+#     return steps
 
 
 def moves(steps):
