@@ -3,7 +3,7 @@ from dxl.data import List, Functor
 from dxl.data.tensor import Vector
 from dxl.function import concat
 
-__all__ = ['Group', 'CartesianRepeated']
+__all__ = ['Group', 'CartesianRepeated', 'LinearRepeated']
 
 
 class Group(Functor[Entity]):
@@ -28,10 +28,21 @@ class Group(Functor[Entity]):
 
 class CartesianRepeated(Group):
     def __init__(self, prototype, steps, grids):
+        #default normal vector is axis-z
         from dxl.shape.function.group import moves, offsets
         f_shape = Vector([s*g for s, g in zip(steps, grids)])
         super().__init__((moves(offsets(steps, grids))
-                          .fmap(lambda v: prototype.translate(v + steps / 2- f_shape/2))))
+                          .fmap(lambda v: prototype.translate(v + steps / 2 - f_shape/2))))
+
+class LinearRepeated(Group):
+    def __init__(self, prototype, steps, num: List[int]):
+        from dxl.shape.function.group import moves, offsets
+        f_shape = Vector([s*g for s, g in zip(steps, num)])
+        super().__init__((moves(offsets(steps, num))
+                           .fmap(lambda v: prototype.translate(v + steps / 2 - f_shape/2))))
+
+# class RingRepeated(Group):
+#     def __init__(self, prototype, )
 
 
 def flatten_kernel(e):
