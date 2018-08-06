@@ -18,3 +18,18 @@ class Point(Entity):
 
     def is_in(self, s: 'Entity') -> bool:
         return s.is_collision(self)
+
+    @property
+    def x(self):
+        return self.origin.x
+
+    @property
+    def y(self):
+        return self.origin.y
+
+    @property
+    def z(self):
+        return self.origin.z
+
+    def __getitem__(self, s):
+        return self.origin[s]
