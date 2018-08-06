@@ -1,5 +1,5 @@
 from dxl.shape.data import Point, Box
-from dxl.shape.binary_ops import is_collision
+from dxl.shape.function import is_collision
 import unittest
 
 class TestCollision(unittest.TestCase):   

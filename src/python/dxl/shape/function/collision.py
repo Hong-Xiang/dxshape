@@ -29,7 +29,16 @@ def is_collision(s0, s1):
 
 
 def point_box_checker(p, b):
-    return b.is_collision(p)
+    # from .rotation.matrix import axis_to_z
+    # from dxl.shape.data import Axis
+    # diff = (p - b.origin)
+    # rot = axis_to_z(Axis3(b.normal))
+    # diff = rot @ diff
+    # for i in range(3):
+    #     if abs(diff[i]) > b.shape()[i] / 2:
+    #         return False
+    # return True
+    return p.is_in(b)
 
 
 CollisionCheckers.register(Point, Box, point_box_checker)

@@ -2,10 +2,9 @@ from abc import ABCMeta, abstractmethod, abstractproperty
 import numpy as np
 
 from dxl.data import DataClass
-from dxl.data.tensor import Vector, Matrix
-from dxl.function import replace
-from dxl.function.tensor import all_close
+from doufo.tensor import Vector, Matrix, all_close
 from dxl.data import Functor
+from dxl.function import replace
 
 
 __all__ = ['Existence', 'Entity']

@@ -1,7 +1,8 @@
 from .base import Entity, Vector
-from dxl.function.tensor.compare import all_close
+from dxl.function.tensor import all_close, abs_
 import numpy as np
 import math
+
 
 
 class Box(Entity):

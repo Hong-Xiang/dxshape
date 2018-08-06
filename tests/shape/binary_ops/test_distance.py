@@ -1,10 +1,12 @@
 import unittest
 import contextlib
-from dxl.shape.binary_ops.distance import distance_between
+# from dxl.shape.binary_ops.distance import distance_between
 
 import pytest
 
 
+
+@pytest.mark.skip("Not impleted yet.")
 @contextlib.contextmanager
 def discussion_in_R3():
     from dxl.shape import default_space, R3

@@ -30,16 +30,17 @@ AXIS_VECTORS = List([[0., 0., 1.],
                      [0., 0., -1.]]).fmap(Vector)
 
 POINT_VECTORS = List([[1.0, 2.0, 0.0],
+                      [-2.0, 1.0, 0.0],
                       [1.0, 0.0, 2.0],
-                      [0.0, 2.0, -1.0],
-                      [-2.0, 1.0, 0.0]]).fmap(Vector)
+                      [0.0, 2.0, -1.0]]).fmap(Vector)
 
 class TestRotate:
     def test_rotate2(self):
         rot = rotate2(math.pi / 3)
         assert all_close(rot, [[0.5, -math.sqrt(3)/2], [math.sqrt(3)/2, 0.5]])
 
-    @pytest.mark.parametrize('v, expect', [AXIS_VECTORS[0:3], POINT_VECTORS[1:4]])
+    @pytest.mark.parametrize('v, expect', list(zip(AXIS_VECTORS[0:3], POINT_VECTORS[1:4])))
+    # @pytest.mark.parametrize('v, expect', [AXIS_VECTORS[0:3], POINT_VECTORS[1:4]])
     def test_rotate3(self, v, expect):
         rot = rotate3(math.pi/2, v)
         assert all_close(rot@POINT_VECTORS[0], expect) 
