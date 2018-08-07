@@ -1,6 +1,6 @@
 from dxl.shape.data import Entity, Point, Box
 from functools import singledispatch
-import dxl.function.tensor as dft
+import doufo.tensor as dft
 
 
 @singledispatch

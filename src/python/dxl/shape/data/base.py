@@ -1,10 +1,9 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 import numpy as np
 
-from dxl.data import DataClass
+from doufo import DataClass, Functor, replace
 from doufo.tensor import Vector, Matrix, all_close
-from dxl.data import Functor
-from dxl.function import replace
+
 
 
 __all__ = ['Existence', 'Entity']
@@ -25,6 +24,9 @@ class Entity(Existence, Functor):
         return replace(self, origin=self.origin + v)
 
     def fmap(self, f):
+        pass
+
+    def unbox(self):
         pass
 
     # @abstractmethod

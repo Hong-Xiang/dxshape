@@ -1,12 +1,10 @@
 from functools import singledispatch
 from dxl.shape.data import  Axis, Matrix, AXIS3_X, AXIS3_Y, AXIS3_Z
-import numpy as np
-from dxl.data.tensor.vector import Vector
-from dxl.function.tensor import transpose, all_close
+from doufo.tensor import Vector, transpose, all_close
 
 import numpy as np
 import math
-#from dxl.function.tensor import 
+
 
 __all__ = ['rotate2', 'rotate3', 'axis_to_z', 'z_to_axis', 'axis_to_axis']
 

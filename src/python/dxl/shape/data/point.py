@@ -1,17 +1,13 @@
 import numpy as np
 
-from dxl.shape.data import AXIS3_Z, Axis
-from .axis import Axis
-from .base import Entity, Vector
+from dxl.shape.data import AXIS3_Z, Axis, Entity
+from doufo.tensor import Vector
 
 __all__ = ["Point"]
 
-
+@dataclass
 class Point(Entity):
-    __slots__ = ['origin']
-
-    def __init__(self, origin):
-        self.origin = Vector(origin)
+    origin: Vector
 
     def fmap(self, f):
         return Point(f(self.origin))
