@@ -9,6 +9,9 @@ class Group(Functor[Entity]):
     def __init__(self, es):
         self.es = List(es)
 
+    def unbox(self):
+        return self.es
+
     def fmap(self, f):
         return Group(self.es.fmap(f))
 
@@ -19,7 +22,7 @@ class Group(Functor[Entity]):
         return self.fmap(lambda e: e.rotate(axis, theta))
 
     def flatten(self):
-        return concat(self.es.fmap(flatten_kernel))
+        return concat(self.es.fmap(flatten_kernel), None)
 
     def __repr__(self):
         return f"<Group({self.es})>"

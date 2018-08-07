@@ -3,13 +3,13 @@ import numpy as np
 
 from doufo import dataclass
 from doufo.tensor import Vector
-
+import attr
 __all__ = ['Axis', 'AXIS3_X', 'AXIS3_Y', 'AXIS3_Z', 'AXES3']
 
 @dataclass
 class Axis(Entity):
-    normal: Vector
-    origin: Vector = Vector([0.0, 0.0, 0.0])
+    normal: Vector = attr.ib(converter=Vector)
+    origin: Vector = attr.ib(converter=Vector, default=Vector([0.0, 0.0, 0.0]))
 
     def rotate_on_direction(self, direction: Vector, theta: float):
         from dxl.shape.function import rotate
@@ -20,7 +20,7 @@ class Axis(Entity):
         return Axis(f(self.normal), f(self.origin))
 
     @classmethod
-    def from_axis_like(axis_like, possible_origin=None):
+    def from_axis_like(cls, axis_like, possible_origin=None):
         if possible_origin is None:
             possible_origin = Vector([0.0, 0.0, 0.0])
         if isinstance(axis_like, Axis):

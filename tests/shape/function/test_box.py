@@ -1,6 +1,6 @@
 from dxl.shape.function.box import Box, Vector, List, divide, sub_box_shape
 from dxl.shape.data import Group
-from dxl.function.tensor import all_close
+from doufo.tensor import all_close
 
 
 def test_sub_box_shape():
