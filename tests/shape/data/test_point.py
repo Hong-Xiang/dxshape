@@ -4,7 +4,7 @@ import math
 from dxl.shape.data import Point, Box, Vector
 from dxl.shape.data import AXIS3_X, AXIS3_Y, AXIS3_Z, Axis, AXES3
 from dxl.shape.function import testing
-from dxl.function.tensor import all_close
+from doufo.tensor import all_close
 import pytest
 
 
