@@ -1,5 +1,6 @@
-from .base import Entity, Vector
-from dxl.function.tensor import all_close, abs_
+from .base import Entity
+from doufo.tensor import all_close, abs_, Vector
+from doufo import dataclass
 import numpy as np
 import math
 
@@ -32,19 +33,13 @@ class Box(Entity):
         from dxl.shape.function.rotation.matrix import axis_to_z 
         from dxl.function.tensor import transpose
         p_tran_rot = p.translate(-self.origin).origin @ transpose(axis_to_z(self.normal))
-        #print(p_tran_rot)
         if ((-self.shape.x / 2 <= p_tran_rot.x < self.shape.x / 2) and
             (-self.shape.y / 2 <= p_tran_rot.y < self.shape.y / 2) and
             (-self.shape.z / 2 <= p_tran_rot.z < self.shape.z / 2)):
             return True
         else:
             return False
-             
-        # for i in range(3):
-        #     if all(-self.shape[i] / 2 < p_tran_rot < self.shape[i] / 2) or all(p_tran_rot[i] == -self.shape[i] / 2):
-        #         return True
-        # return False
-
+            
     def fmap(self, f):
         return Box(self.shape, f(self.origin), f(self.normal))
 

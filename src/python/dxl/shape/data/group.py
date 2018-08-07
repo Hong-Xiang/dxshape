@@ -1,7 +1,6 @@
 from .base import Entity
-from dxl.data import List, Functor
-from dxl.data.tensor import Vector
-from dxl.function import concat
+from doufo import List, Functor, concat
+from doufo.tensor import Vector
 
 __all__ = ['Group', 'CartesianRepeater', 'RingRepeater']
 

@@ -1,6 +1,6 @@
 from dxl.shape.data import Box, CartesianRepeater, RingRepeater
-from dxl.data import List
-from dxl.shape.data import Vector
+from doufo import List
+from doufo.tensor import Vector
 
 
 # def divide(b: Box, grid: List[int]) -> List[Box]:

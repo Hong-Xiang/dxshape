@@ -1,5 +1,5 @@
-from dxl.shape.data import Vector, AXES3
-from dxl.function.tensor import norm, argmax, abs_, unit
+from dxl.shape.data import AXES3
+from doufo.tensor import norm, argmax, abs_, unit,  Vector
 
 
 def axis_x_of(n: Vector) -> Vector:

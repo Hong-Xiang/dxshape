@@ -5,7 +5,7 @@ from dxl.shape.data.box import Box
 from dxl.shape.data.point import Point
 from dxl.shape.data.axis import Axis
 from dxl.shape.function.box import divide
-from dxl.data.tensor import Tensor, Vector
+from doufo.tensor import Tensor, Vector
 
 def histo_points_to_box(points: list, box: Box, grid: list, weights: list = None):
     """

@@ -1,6 +1,6 @@
 from dxl.shape.data import Vector, Matrix
-from dxl.function.tensor import all_close, argmax, project
-from dxl.data import List
+from doufo.tensor import all_close, argmax, project
+from doufo import List
 
 # TODO enhance logic since lots of duplication
 

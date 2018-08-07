@@ -1,7 +1,7 @@
 from dxl.shape.data import Vector, Matrix
 from .function import proj, embed
-from dxl.function.tensor import transpose
-from dxl.data import List
+from doufo.tensor import transpose
+from doufo import List
 
 __all__ = ['proj3to2', 'embed2to3']
 
