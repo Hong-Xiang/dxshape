@@ -31,8 +31,8 @@ class Axis(Entity):
         return Axis(normal, origin)
 
 AXIS3_X = Axis(Vector([1.0, 0.0, 0.0]))
-AXIS3_Y = Axis([0.0, 1.0, 0.0])
-AXIS3_Z = Axis([0.0, 0.0, 1.0])
+AXIS3_Y = Axis(Vector([0.0, 1.0, 0.0]))
+AXIS3_Z = Axis(Vector([0.0, 0.0, 1.0]))
 
 
 class AXES3:

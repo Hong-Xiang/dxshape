@@ -1,7 +1,7 @@
 import unittest
 from dxl.shape.function.projection import embed2to3, proj3to2
 from doufo.tensor import all_close
-from dxl.shape.data import Matrix, Vector
+from doufo.tensor import Matrix, Vector
 import numpy as np
 import pytest
 

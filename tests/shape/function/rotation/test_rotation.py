@@ -1,7 +1,7 @@
 import unittest
 from dxl.shape.function.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis, rotate2, rotate3
 from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
-from dxl.shape.data import Vector
+from doufo.tensor import Vector
 from doufo.tensor import all_close
 from dxl.data import List
 import itertools

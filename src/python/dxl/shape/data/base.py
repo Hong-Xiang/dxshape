@@ -4,8 +4,6 @@ import numpy as np
 from doufo import DataClass, Functor, replace
 from doufo.tensor import Vector, Matrix, all_close
 
-
-
 __all__ = ['Existence', 'Entity']
 
 
@@ -16,6 +14,7 @@ class Existence(DataClass):
 
 
 class Entity(Existence, Functor):
+    origin: Vector
     @property
     def ndim(self):
         return len(self.origin)
