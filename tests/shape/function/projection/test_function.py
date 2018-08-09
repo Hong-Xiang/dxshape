@@ -1,5 +1,5 @@
 from dxl.shape.function import proj, embed
-from dxl.shape.data import Vector
+from doufo.tensor import Vector
 from doufo.tensor import all_close
 import pytest
 

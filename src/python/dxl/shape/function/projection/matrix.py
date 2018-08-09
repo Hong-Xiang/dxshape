@@ -1,4 +1,4 @@
-from dxl.shape.data import Vector, Matrix
+from doufo.tensor import Vector, Matrix
 from .function import proj, embed
 from doufo.tensor import transpose
 from doufo import List
