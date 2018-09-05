@@ -1,6 +1,6 @@
 from dxl.shape.function import proj, embed
-from dxl.shape.data import Vector
-from dxl.function.tensor import all_close
+from doufo.tensor import Vector
+from doufo.tensor import all_close
 import pytest
 
 @pytest.mark.parametrize('v,n,expect', [

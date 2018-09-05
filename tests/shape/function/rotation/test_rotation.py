@@ -1,8 +1,8 @@
 import unittest
 from dxl.shape.function.rotation.matrix import axis_to_axis, axis_to_z, z_to_axis, rotate2, rotate3
 from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
-from dxl.shape.data import Vector
-from dxl.function.tensor import all_close
+from doufo.tensor import Vector
+from doufo.tensor import all_close
 from dxl.data import List
 import itertools
 #from dxl.shape.utils.vector import Vector3
@@ -84,7 +84,7 @@ class TestAxisToAxis:
                 # print(type(v_src))
                 # print(type(v_tar))
         m = axis_to_axis(src, tar)
-        det = np.linalg.det(m.join())
+        det = np.linalg.det(m.unbox())
         assert abs(det) == pytest.approx(1.0)
         assert all_close(m@src, tar)
 

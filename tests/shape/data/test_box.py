@@ -1,11 +1,11 @@
 import unittest
 import numpy as np
 import math
-from dxl.shape.data.box import Box
-from dxl.shape.data.point import Point
-from dxl.shape.data.axis import Axis
-from dxl.shape.data.base import Entity
-from dxl.function.tensor import all_close
+from dxl.shape.data import Box, Point, Axis, Entity
+# from dxl.shape.data.point import Point
+# from dxl.shape.data.axis import Axis
+# from dxl.shape.data.base import Entity
+from doufo.tensor import all_close, Vector
 
 class TestBox(unittest.TestCase):
     def test_init(self):
@@ -37,7 +37,7 @@ class TestBox(unittest.TestCase):
 
     def test_rotate(self):
         b = Box([10, 10, 10], [1.0, 2.0, 0.0], [0, 1, 0])
-        axis = Axis(normal = [-1.0, 0.0, 0.0], origin = [0.0, 1.0, 0.0])
+        axis = Axis(normal = Vector([-1.0, 0.0, 0.0]), origin = Vector([0.0, 1.0, 0.0]))
         theta = math.pi/2
         b_rotate = b.rotate(axis, theta)
         self.assertEqual(b_rotate, Box([10, 10, 10], [1.0, 1.0, -1.0], [0.0, 0.0, -1.0]))

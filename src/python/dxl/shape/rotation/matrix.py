@@ -1,5 +1,5 @@
 import numpy as np
-from ..solid.axis import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
+from ..data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 from ..projection import projection_2to3, projection_3to2
 import math
 

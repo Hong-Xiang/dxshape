@@ -5,8 +5,8 @@ from dxl.shape.data.box import Box
 from dxl.shape.data.point import Point
 from dxl.shape.data.axis import Axis
 from dxl.shape.histogram.histo_point_box import histo_points_to_box
-from dxl.data.tensor import Vector, Tensor
-from dxl.function.tensor import all_close
+from doufo.tensor import Vector, Tensor
+from doufo.tensor import all_close
 import pytest
 
 class TestHistoPointBox(unittest.TestCase):

@@ -1,7 +1,7 @@
 from functools import singledispatch
-from dxl.shape.data import Entity, Vector, Axis, AXES3
+from dxl.shape.data import Entity, Axis, AXES3
 from .matrix import axis_to_z, rotate2, rotate3, z_to_axis
-
+from doufo.tensor import Vector
 
 __all__ = ['rotate']
 
@@ -31,9 +31,9 @@ def rotate_of_dim(theta, dim):
     if dim == 2:
         return rotate2(theta)
     else:
-        return rotate3(theta, AXES3.z)
+        return rotate3(theta, AXES3.z.normal)
 
-
+# FIXME: Why Entity is registered twice ?
 @rotate.register(Entity)
 def _(o, axis_like, theta):
     return o.rotate(Axis(axis_like), theta)
