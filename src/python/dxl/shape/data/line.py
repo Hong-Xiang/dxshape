@@ -16,3 +16,4 @@ def get_container_plane_in_R3(p0, normal_vector):
 def distance_of_lines(line0, line1):
     pass
     
+

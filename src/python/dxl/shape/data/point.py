@@ -4,7 +4,8 @@ from dxl.shape.data import AXIS3_Z, Axis, Entity
 from doufo.tensor import Vector
 from doufo import dataclass
 import attr
-__all__ = ["Point"]
+__all__ = ["Point", "Segment"]
+
 
 @dataclass
 class Point(Entity):
@@ -31,3 +32,11 @@ class Point(Entity):
     def __getitem__(self, s):
         return self.origin[s]
 
+
+@dataclass
+class Segment(Entity):
+    fst: Point
+    snd: Point
+
+    def fmap(self, f):
+        return Segment(*f(fst, snd))
