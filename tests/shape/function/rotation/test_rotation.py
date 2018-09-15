@@ -3,7 +3,7 @@ from dxl.shape.function.rotation.matrix import axis_to_axis, axis_to_z, z_to_axi
 from dxl.shape.data import Axis, AXIS3_X, AXIS3_Y, AXIS3_Z
 from doufo.tensor import Vector
 from doufo.tensor import all_close
-from dxl.data import List
+from doufo import List
 import itertools
 #from dxl.shape.utils.vector import Vector3
 #from dxl.shape.utils.axes import Axis3, AXIS3_X, AXIS3_Z
